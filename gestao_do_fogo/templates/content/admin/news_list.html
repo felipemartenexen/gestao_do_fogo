@@ -1,0 +1,75 @@
+{% extends "web/app/app_base.html" %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <p class="rotulo text-sm text-[var(--vermelho-700)]">{% translate "Conteúdo" %}</p>
+        <h1 class="text-2xl">{% translate "Notícias" %}</h1>
+        <p class="text-sm text-base-content/70 mt-1">
+          {% translate "Escreva, revise e publique. Para blocos mais elaborados, use o CMS." %}
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <a href="/cms/" class="btn btn-sm btn-outline">{% translate "Abrir o CMS" %}</a>
+        <a href="{% url 'content:news_create' %}" class="btn btn-sm btn-primary">{% translate "Nova notícia" %}</a>
+      </div>
+    </div>
+
+    {% if index_missing %}
+      <div class="alert alert-error mt-4">
+        <span>{% translate "A página de Notícias não existe. Rode `manage.py bootstrap_content` antes de publicar." %}</span>
+      </div>
+    {% endif %}
+
+    <div class="overflow-x-auto mt-5">
+      <table class="table table-sm w-full">
+        <thead>
+          <tr>
+            <th>{% translate "Notícia" %}</th>
+            <th>{% translate "Data" %}</th>
+            <th>{% translate "Situação" %}</th>
+            <th class="text-right">{% translate "Ações" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in posts %}
+            <tr class="{% if not post.live %}opacity-60{% endif %}">
+              <td>
+                <div class="font-medium">{{ post.title }}</div>
+                <div class="text-xs text-base-content/60 line-clamp-2 max-w-xl">{{ post.intro }}</div>
+              </td>
+              <td class="tabular text-sm whitespace-nowrap">{{ post.date|date:"d/m/Y" }}</td>
+              <td>
+                {% if post.live %}
+                  <span class="badge badge-sm badge-success">{% translate "no ar" %}</span>
+                {% else %}
+                  <span class="badge badge-sm badge-ghost">{% translate "rascunho" %}</span>
+                {% endif %}
+              </td>
+              <td class="text-right whitespace-nowrap">
+                {% if post.live %}
+                  <a href="{{ post.url }}" class="btn btn-xs btn-ghost" target="_blank" rel="noopener">{% translate "Ver" %}</a>
+                {% endif %}
+                <a href="{% url 'content:news_edit' post.pk %}" class="btn btn-xs btn-outline">{% translate "Editar" %}</a>
+                <form method="post" action="{% url 'content:news_toggle' post.pk %}" class="inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-xs btn-ghost">
+                    {% if post.live %}{% translate "Despublicar" %}{% else %}{% translate "Publicar" %}{% endif %}
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="4" class="text-center py-10 text-base-content/60">
+              <p>{% translate "Nenhuma notícia ainda." %}</p>
+              <a href="{% url 'content:news_create' %}" class="btn btn-sm btn-primary mt-3">
+                {% translate "Escrever a primeira" %}
+              </a>
+            </td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

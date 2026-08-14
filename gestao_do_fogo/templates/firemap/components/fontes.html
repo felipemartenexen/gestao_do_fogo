@@ -1,0 +1,33 @@
+{% load i18n %}
+{% comment %}
+  Renderizado a partir do próprio catálogo, então nunca fica desencontrado das camadas
+  que o mapa realmente oferece.
+{% endcomment %}
+<p class="text-sm text-base-content/70 mb-3">
+  {% translate "Todas as camadas são calculadas no Google Earth Engine, sob demanda, para o recorte escolhido nos filtros." %}
+</p>
+
+{% for layer in layers %}
+  <div class="mapa-card">
+    <h3 class="mapa-camada-nome">{{ layer.name }}</h3>
+    <p class="mapa-camada-desc mt-1">{{ layer.summary }}</p>
+    <dl class="mt-3 text-xs space-y-1">
+      <div class="flex gap-2">
+        <dt class="rotulo text-base-content/50 w-20 flex-none">{% translate "Fonte" %}</dt>
+        <dd>{{ layer.source }}</dd>
+      </div>
+      <div class="flex gap-2">
+        <dt class="rotulo text-base-content/50 w-20 flex-none">{% translate "Período" %}</dt>
+        <dd>
+          {% if layer.uses_month %}{% translate "Mensal" %}{% elif layer.uses_year %}{% translate "Anual" %}{% else %}{% translate "Sem recorte temporal" %}{% endif %}
+        </dd>
+      </div>
+      {% if not layer.available %}
+        <div class="flex gap-2">
+          <dt class="rotulo text-base-content/50 w-20 flex-none">{% translate "Situação" %}</dt>
+          <dd class="text-[var(--vermelho-700)]">{{ layer.pending_reason }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  </div>
+{% endfor %}

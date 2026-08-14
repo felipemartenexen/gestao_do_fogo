@@ -1,0 +1,351 @@
+/* ==========================================================================
+   Conteúdo dos painéis do mapa do fogo: camadas, período, mapa base,
+   estatísticas e a legenda sobre o mapa.
+
+   Tudo aqui usa os tokens do design system (verde/laranja/vermelho, rampa de fogo,
+   Oswald para rótulo e número, tabular-nums) - nenhuma cor solta.
+   ========================================================================== */
+
+/* --- grupos da aba Camadas ------------------------------------------------ */
+
+.mapa-grupo + .mapa-grupo {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-base-300);
+}
+.mapa-grupo-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.mapa-sinc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-base-content) 60%, transparent);
+}
+
+/* --- camada --------------------------------------------------------------- */
+
+.mapa-camada {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-base-300);
+}
+.mapa-camada:last-child {
+  border-bottom: 0;
+}
+.mapa-camada-nome {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+.mapa-camada-desc {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--color-base-content) 65%, transparent);
+}
+.mapa-camada-corpo {
+  margin: 8px 0 0 40px;
+}
+.mapa-camada--limite {
+  padding: 8px 0;
+}
+.mapa-legenda-itens {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mapa-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--color-base-content) 15%, transparent);
+}
+/* limite é linha, não área: o swatch precisa ler como traço */
+.mapa-swatch--linha {
+  height: 3px;
+  border-radius: 0;
+  border: 0;
+}
+
+.mapa-status {
+  font-size: 0.68rem;
+  line-height: 1.2;
+  display: block;
+}
+.mapa-status[data-state='loading'] {
+  color: var(--laranja-700);
+}
+.mapa-status[data-state='error'],
+.mapa-status[data-state='pending'] {
+  color: var(--vermelho-700);
+}
+.mapa-status[data-state='off'],
+.mapa-status[data-state='ok'] {
+  color: transparent;
+}
+
+/* --- período por camada --------------------------------------------------- */
+
+.mapa-periodo {
+  padding: 8px 0;
+}
+.mapa-periodo-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.mapa-periodo-ano {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--vermelho-700);
+}
+.mapa-periodo-extremos {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  color: color-mix(in srgb, var(--color-base-content) 45%, transparent);
+}
+
+/* O trilho carrega a rampa de fogo: o slider deixa de ser um controle genérico e passa a
+   dizer que o eixo é a série histórica de queimadas. */
+.mapa-range {
+  width: 100%;
+  height: 18px;
+  margin: 4px 0 2px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.mapa-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--fogo-1),
+    var(--fogo-2),
+    var(--fogo-3),
+    var(--fogo-4),
+    var(--fogo-5),
+    var(--fogo-6)
+  );
+}
+.mapa-range::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--fogo-1),
+    var(--fogo-2),
+    var(--fogo-3),
+    var(--fogo-4),
+    var(--fogo-5),
+    var(--fogo-6)
+  );
+}
+.mapa-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--color-base-100);
+  border: 3px solid var(--verde-900);
+}
+.mapa-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-base-100);
+  border: 3px solid var(--verde-900);
+}
+[data-theme='gestao-do-fogo-dark'] .mapa-range::-webkit-slider-thumb,
+[data-theme='gestao-do-fogo-dark'] .mapa-range::-moz-range-thumb {
+  border-color: var(--verde-100);
+}
+
+/* --- mapa base ------------------------------------------------------------ */
+
+.mapa-base-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--color-base-300);
+  border-radius: var(--radius-box);
+  cursor: pointer;
+  width: 100%;
+  background: transparent;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.mapa-base-card.is-ativo {
+  background: var(--color-base-200);
+  border-color: var(--color-primary);
+}
+.mapa-base-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  flex: none;
+  border: 1px solid var(--color-base-300);
+}
+.mapa-base-thumb--claro {
+  background: linear-gradient(135deg, #f6f2ea 0%, #eae7e1 60%, #c9c7c2 100%);
+}
+.mapa-base-thumb--satelite {
+  background: linear-gradient(135deg, #2c4a2e 0%, #4a6b3a 45%, #8a7a4d 100%);
+}
+
+/* --- estatísticas --------------------------------------------------------- */
+
+.mapa-recorte-dir {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.mapa-nota {
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-base-content) 65%, transparent);
+  margin-bottom: 12px;
+}
+
+/* Ecoa .kpi do design system - barra laranja à esquerda, número em Oswald vinho. */
+.mapa-kpi {
+  border-left: 6px solid var(--laranja-500);
+  background: var(--color-base-200);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.mapa-kpi-rot {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.65rem;
+  color: color-mix(in srgb, var(--color-base-content) 60%, transparent);
+}
+.mapa-kpi-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  color: var(--vermelho-700);
+}
+.mapa-kpi-apoio {
+  font-size: 0.68rem;
+  color: color-mix(in srgb, var(--color-base-content) 60%, transparent);
+}
+
+.mapa-barra + .mapa-barra {
+  margin-top: 6px;
+}
+.mapa-barra-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.68rem;
+}
+.mapa-barra-rotulo {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mapa-barra-valor {
+  flex: none;
+  color: color-mix(in srgb, var(--color-base-content) 60%, transparent);
+}
+.mapa-barra-trilho {
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-base-300);
+  overflow: hidden;
+}
+.mapa-barra-trilho i {
+  display: block;
+  height: 100%;
+  background: var(--fogo-4);
+}
+
+.mapa-serie {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 72px;
+  margin-top: 6px;
+}
+.mapa-serie-col {
+  flex: 1;
+  min-width: 2px;
+  background: color-mix(in srgb, var(--fogo-4) 45%, transparent);
+}
+.mapa-serie-col.is-ativo {
+  background: var(--vermelho-700);
+}
+.mapa-serie-eixo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  margin-top: 2px;
+  color: color-mix(in srgb, var(--color-base-content) 45%, transparent);
+}
+
+/* --- legenda sobre o mapa ------------------------------------------------- */
+
+.mapa-legenda {
+  position: absolute;
+  bottom: 34px;
+  left: var(--desloc-esq);
+  z-index: 15;
+  max-width: 260px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--color-base-100) 92%, transparent);
+  border: 1px solid var(--color-base-300);
+  border-radius: var(--radius-box);
+  box-shadow: var(--mapa-sombra);
+  transition: left 0.3s ease;
+}
+.mapa-legenda ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mapa-legenda li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+.mapa-legenda i {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+@media (max-width: 1024px) {
+  .mapa-legenda {
+    display: none;
+  }
+}

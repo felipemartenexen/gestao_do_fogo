@@ -1,0 +1,83 @@
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+extend-exclude = [
+    ".direnv",
+    ".git",
+    ".ruff_cache",
+    "node_modules",
+    "migrations",
+]
+line-length = 120
+indent-width = 4
+target-version = "py314"
+
+[tool.ruff.lint]
+fixable = [
+    "ALL",
+]
+unfixable = []
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.setuptools]
+py-modules = []
+
+[project]
+name = "gestao-do-fogo"
+version = "0.1.0"
+description = "Plataforma Gestão do Fogo"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "Django>=6.0",
+    "celery",
+    "celery-progress",
+    "celery[redis]",
+    "channels",
+    "channels_redis",
+    "django-allauth[socialaccount,mfa]>=65.13.0",
+    "django-anymail[mailgun]", # email services
+    "django-celery-beat",
+    "django-environ",
+    "django-health-check",
+    "django-hijack",
+    "django-vite>=3.1.0",
+    "django-waffle",
+    "djangorestframework",
+    "djangorestframework-api-key",
+    "drf-spectacular",
+    "earthengine-api>=1.7.37",
+    "httpx>=0.28.1",
+    "markdown",
+    "mcp-alchemy==2025.8.15.91819",
+    "nh3>=0.2.21",
+    "openai",
+    "psycopg",
+    "pydantic-ai-slim[openai,anthropic,google,mcp]>=1.0",
+    "redis",
+    "requests",
+    "sentry-sdk[django]>=2.55.0",
+    "wagtail",
+]
+
+[dependency-groups]
+dev = [
+    "channels[daphne]",
+    "django-browser-reload",
+    "django-debug-toolbar",
+    "django-watchfiles",
+    "pre-commit",
+    "ruff>=0.15.6",
+    "pegasus-cli>=0.15",
+    "psycopg[binary]",
+]
+prod = [
+    "gunicorn",
+    "psycopg[c]",
+    "uvicorn[standard]",
+]

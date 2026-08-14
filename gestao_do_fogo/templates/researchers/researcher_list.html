@@ -1,0 +1,163 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load django_vite %}
+{% load i18n %}
+{% block page_head %}
+  {{ block.super }}
+  {% vite_asset 'assets/javascript/researchers/map.js' %}
+{% endblock %}
+{% block body %}
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <div class="mb-6">
+      <h1 class="text-3xl md:text-4xl font-bold">{% translate "Pesquisadores" %}</h1>
+      <p class="text-base-content/70 mt-2 max-w-3xl">
+        {% blocktranslate with total=total_all %}
+          Rede de {{ total }} pesquisadores de fogo. Use o mapa e os filtros para encontrar quem trabalha
+          com determinado bioma, tema ou região.
+        {% endblocktranslate %}
+      </p>
+    </div>
+
+    {% if own_profile and own_profile.missing_profile_fields %}
+      <div class="alert alert-info mb-6 items-start">
+        <div class="flex-1">
+          <p class="font-medium">
+            {% blocktranslate with name=own_profile.full_name %}Olá, {{ name }} — seu perfil pode ficar mais completo{% endblocktranslate %}
+          </p>
+          <p class="text-sm mt-1">
+            {% translate "Falta:" %}
+            {% for field in own_profile.missing_profile_fields %}
+              <span class="badge badge-sm badge-outline">{{ field }}</span>
+            {% endfor %}
+          </p>
+        </div>
+        <a href="{% url 'researchers:my_profile' %}" class="btn btn-sm btn-primary">{% translate "Atualizar perfil" %}</a>
+      </div>
+    {% endif %}
+
+    {% comment %} mapa {% endcomment %}
+    <div class="card bg-base-100 border border-base-300 mb-6 overflow-hidden">
+      <div class="flex flex-wrap items-center gap-3 px-4 py-3 border-b border-base-300">
+        <span class="text-sm font-medium">{% translate "Posicionar por:" %}</span>
+        <div class="join">
+          <a href="?{{ base_querystring }}local=instituicao"
+             class="join-item btn btn-xs {% if map_mode == 'instituicao' %}btn-primary{% else %}btn-ghost{% endif %}">
+            {% translate "Instituição" %} ({{ institution_count }})
+          </a>
+          <a href="?{{ base_querystring }}local=moradia"
+             class="join-item btn btn-xs {% if map_mode == 'moradia' %}btn-primary{% else %}btn-ghost{% endif %}">
+            {% translate "Moradia" %} ({{ residence_count }})
+          </a>
+        </div>
+      </div>
+      <div id="researchers-map"
+           class="h-[26rem] w-full bg-base-200 z-0"
+           data-url="{% url 'researchers:map_data' %}{% if querystring %}?{{ querystring }}{% endif %}"></div>
+      <div class="px-4 py-2 text-sm text-base-content/60 border-t border-base-300">
+        <span id="map-status">{% translate "Carregando mapa…" %}</span>
+      </div>
+    </div>
+
+    {% if map_mode == 'moradia' and residence_count < institution_count %}
+      <div class="alert alert-info mb-6">
+        <div>
+          <p>
+            {% blocktranslate with n=residence_count total=total_all %}
+              Só {{ n }} de {{ total }} pesquisadores informaram a cidade onde moram — essa pergunta
+              não existia no formulário original.
+            {% endblocktranslate %}
+          </p>
+          <a href="{% url 'researchers:my_profile' %}" class="link link-primary text-sm">
+            {% translate "Atualize seu perfil para aparecer neste mapa" %}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+
+    {% comment %} filtros {% endcomment %}
+    <form method="get" class="card bg-base-100 border border-base-300 p-4 mb-6">
+      <input type="hidden" name="local" value="{{ map_mode }}">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div class="lg:col-span-2">
+          <label class="label py-1" for="q"><span class="label-text text-xs">{% translate "Buscar" %}</span></label>
+          <input type="search" id="q" name="q" value="{{ active.q }}" class="input input-bordered w-full"
+                 placeholder="{% translate 'nome, instituição, tema…' %}">
+        </div>
+        <div>
+          <label class="label py-1" for="bioma"><span class="label-text text-xs">{% translate "Bioma" %}</span></label>
+          <select id="bioma" name="bioma" class="select select-bordered w-full">
+            <option value="">{% translate "Todos" %}</option>
+            {% for biome in biomes %}
+              <option value="{{ biome.slug }}" {% if active.bioma == biome.slug %}selected{% endif %}>
+                {{ biome.name }} ({{ biome.n }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="label py-1" for="uf"><span class="label-text text-xs">{% translate "Estado" %}</span></label>
+          <select id="uf" name="uf" class="select select-bordered w-full">
+            <option value="">{% translate "Todos" %}</option>
+            {% for code, label in state_options %}
+              <option value="{{ code }}" {% if active.uf == code %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="label py-1" for="area"><span class="label-text text-xs">{% translate "Área de atuação" %}</span></label>
+          <select id="area" name="area" class="select select-bordered w-full">
+            <option value="">{% translate "Todas" %}</option>
+            {% for area in areas %}
+              <option value="{{ area.slug }}" {% if active.area == area.slug %}selected{% endif %}>
+                {{ area.name }} ({{ area.n }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-sm">{% translate "Filtrar" %}</button>
+        {% if has_filters %}
+          <a href="{% url 'researchers:list' %}" class="btn btn-ghost btn-sm">{% translate "Limpar" %}</a>
+        {% endif %}
+        <span class="text-sm text-base-content/60 ml-auto">
+          {% blocktranslate count counter=total %}{{ counter }} pesquisador{% plural %}{{ counter }} pesquisadores{% endblocktranslate %}
+        </span>
+      </div>
+    </form>
+
+    {% comment %} listagem {% endcomment %}
+    {% if page_obj.object_list %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for researcher in page_obj.object_list %}
+          {% include "researchers/components/researcher_card.html" %}
+        {% endfor %}
+      </div>
+
+      {% if page_obj.has_other_pages %}
+        <div class="join flex justify-center mt-8">
+          {% if page_obj.has_previous %}
+            <a class="join-item btn btn-sm" href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.previous_page_number }}">«</a>
+          {% endif %}
+          <span class="join-item btn btn-sm btn-disabled">
+            {% blocktranslate with num=page_obj.number total=page_obj.paginator.num_pages %}Página {{ num }} de {{ total }}{% endblocktranslate %}
+          </span>
+          {% if page_obj.has_next %}
+            <a class="join-item btn btn-sm" href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.next_page_number }}">»</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="text-center py-16 text-base-content/60">
+        <p class="text-lg">{% translate "Nenhum pesquisador encontrado com esses filtros." %}</p>
+        <a href="{% url 'researchers:list' %}" class="btn btn-sm btn-outline mt-4">{% translate "Limpar filtros" %}</a>
+      </div>
+    {% endif %}
+
+    <div class="mt-10 text-center">
+      <a href="{% url 'researchers:my_profile' %}" class="btn btn-outline">
+        {% translate "Cadastrar ou atualizar meu perfil" %}
+      </a>
+    </div>
+  </div>
+{% endblock %}

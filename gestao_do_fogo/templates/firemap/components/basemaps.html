@@ -1,0 +1,21 @@
+{% load i18n %}
+{% comment %}
+  As miniaturas são gradientes CSS, não imagens: evitam duas requisições e não ficam
+  desatualizadas quando o provedor do mapa base muda o estilo.
+{% endcomment %}
+<div role="radiogroup" aria-label="{% translate 'Mapa base' %}">
+  <button type="button" data-basemap="claro" role="radio" aria-checked="true" class="mapa-base-card is-ativo">
+    <span class="mapa-base-thumb mapa-base-thumb--claro" aria-hidden="true"></span>
+    <span class="min-w-0">
+      <span class="mapa-camada-nome block">{% translate "Claro" %}</span>
+      <span class="mapa-camada-desc block">{% translate "Fundo neutro, realça as cicatrizes de fogo." %}</span>
+    </span>
+  </button>
+  <button type="button" data-basemap="satelite" role="radio" aria-checked="false" class="mapa-base-card">
+    <span class="mapa-base-thumb mapa-base-thumb--satelite" aria-hidden="true"></span>
+    <span class="min-w-0">
+      <span class="mapa-camada-nome block">{% translate "Satélite" %}</span>
+      <span class="mapa-camada-desc block">{% translate "Imagem de alta resolução, para reconhecer o terreno." %}</span>
+    </span>
+  </button>
+</div>

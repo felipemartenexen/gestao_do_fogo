@@ -1,0 +1,16 @@
+{% load i18n %}
+<section class="app-card">
+  <h2 class="text-xl mb-1">{% translate "Autenticação em duas etapas" %}</h2>
+    {% if user_has_valid_totp_device %}
+        <p class="mb-3">{% translate "A autenticação em duas etapas já está ativa." %}</p>
+        <a href="{% url "mfa_index" %}" class="btn btn-outline">{% translate "Configurar" %}</a>
+    {% else %}
+      {% if user.has_verified_email %}
+        <p class="mb-3">{% translate "A autenticação em duas etapas não está ativa." %}</p>
+        <a href="{% url "mfa_activate_totp" %}" class="btn btn-outline">{% translate "Ativar" %}</a>
+      {% else %}
+        <p class="mb-3">{% translate "Para ativar a autenticação em duas etapas, verifique antes seu endereço de e-mail." %}</p>
+        <a href="{% url "account_email" %}" class="btn btn-outline">{% translate "Verificar" %}</a>
+      {% endif %}
+    {% endif %}
+</section>

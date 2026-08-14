@@ -1,0 +1,69 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load form_tags %}
+{% block head_title %}{% translate "Endereços de e-mail" %}{% endblock %}
+{% block content %}
+  <h1 class="text-3xl font-bold mb-2">{% translate "Endereços de e-mail" %}</h1>
+  {% if user.emailaddress_set.all %}
+  <p>{% translate 'Estes endereços de e-mail estão associados à sua conta:' %}</p>
+  <form action="{% url 'account_email' %}" class="email_list" method="post">
+    {% csrf_token %}
+    <fieldset class="blockLabels">
+      {% for emailaddress in user.emailaddress_set.all %}
+        <div class="mb-2">
+          <label for="email_radio_{{ forloop.counter }}"
+                 class="{% if emailaddress.primary %}primary_email{% endif %}">
+          <input id="email_radio_{{ forloop.counter }}" type="radio" name="email"
+                 {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{% endif %}
+                 value="{{ emailaddress.email }}"/>
+          {{ emailaddress.email }}
+          <span class="text-sm text-base-content/70">
+            {% if emailaddress.verified %}
+              <span class="text-success">{% translate "Verificado" %}</span>
+            {% else %}
+              <span class="text-base-content/70">{% translate "Não verificado" %}</span>
+            {% endif %}
+            {% if emailaddress.primary %}<span class="text-info">{% translate "Principal" %}</span>{% endif %}
+          </span>
+          </label>
+        </div>
+      {% endfor %}
+      <div class="mt-2">
+        <button class="btn btn-primary" type="submit" name="action_primary">{% translate 'Make Primary' %}</button>
+        <button class="btn btn-outline" type="submit" name="action_send">{% translate 'Reenviar verificação' %}</button>
+        <button class="btn btn-outline text-red-500 border-red-500 hover:bg-red-500 hover:border-red-700 hover:text-white" type="submit" name="action_remove">{% translate 'Remover' %}</button>
+      </div>
+    </fieldset>
+  </form>
+{% else %}
+  <p>
+    <strong>{% translate 'Atenção:' %}</strong> {% translate "Você ainda não cadastrou nenhum endereço de e-mail. Cadastre um para receber notificações, redefinir sua senha e outras ações." %}
+  </p>
+{% endif %}
+{% if can_add_email %}
+  <hr>
+  <h2 class="text-xl mb-1">{% translate "Adicionar endereço de e-mail" %}</h2>
+  <form method="post" action="{% url 'account_email' %}" class="add_email">
+    {% csrf_token %}
+    {% render_form_fields form %}
+    <div class="mt-2">
+      <button class="btn btn-primary" name="action_add" type="submit">{% translate "Adicionar e-mail" %}</button>
+    </div>
+  </form>
+{% endif %}
+{% endblock %}
+{% block page_js %}
+  <script>
+    (function () {
+      var message = "{% translate 'Deseja mesmo remover o endereço de e-mail selecionado?' %}";
+      var actions = document.getElementsByName('action_remove');
+      if (actions.length) {
+        actions[0].addEventListener("click", function (e) {
+          if (!confirm(message)) {
+            e.preventDefault();
+          }
+        });
+      }
+    })();
+  </script>
+{% endblock %}

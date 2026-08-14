@@ -1,0 +1,161 @@
+{% extends "web/base.html" %}
+{% load django_vite %}
+{% load i18n %}
+
+{% comment %}
+  Tela cheia: sem a navegação do site, sem a pilha de mensagens e sem rodapé. O mapa é
+  uma ferramenta de análise e abre em página própria - qualquer chrome extra come altura útil.
+{% endcomment %}
+{% block top_nav %}{% endblock %}
+{% block messages %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block page_head %}
+  {{ block.super }}
+  {% vite_asset 'assets/javascript/firemap/map.js' %}
+{% endblock %}
+
+{% block body %}
+<div id="firemap"
+     class="mapa-app"
+     x-data="mapaPainel"
+     @keydown.escape.window="fecharTudo()"
+     data-tiles-url="{% url 'firemap:layer_tiles' 'PLACEHOLDER' %}"
+     data-stats-url="{% url 'firemap:layer_stats' 'PLACEHOLDER' %}"
+     data-municipalities-url="{% url 'firemap:municipalities' %}">
+
+  {% comment %} ---------- cabeçalho ---------- {% endcomment %}
+  <header class="mapa-cabecalho">
+    <i class="faixa-fogo mapa-faixa" aria-hidden="true"></i>
+    <div class="mapa-cabecalho-esq">
+      <h1 class="mapa-titulo">{% translate "Mapa do fogo" %}</h1>
+      <span class="mapa-recorte" data-recorte>{% translate "Brasil" %}</span>
+    </div>
+    <div class="mapa-cabecalho-dir">
+      <a href="{% url 'web:home' %}" class="mapa-link">{% translate "Voltar ao site" %}</a>
+      {% include "web/components/dark_mode_selector.html" %}
+    </div>
+    <div id="mapa-progresso" class="mapa-progresso" hidden></div>
+  </header>
+
+  {% comment %} ---------- palco: âncora de tudo que flutua ---------- {% endcomment %}
+  <main class="mapa-palco"
+        x-bind:data-esq="esq ? 'aberta' : 'fechada'"
+        x-bind:data-dir="dir ? 'aberta' : 'fechada'">
+
+    <div id="firemap-canvas" class="mapa-canvas"></div>
+
+    {% comment %}
+      Legenda sobre o mapa: com cada camada no seu próprio ano, um print da tela precisa
+      dizer sozinho o que está vendo.
+    {% endcomment %}
+    <div class="mapa-legenda" data-legenda hidden aria-live="polite"></div>
+
+    {% comment %} painel esquerdo: recorte, camadas e mapa base {% endcomment %}
+    <aside id="painel-esq" class="mapa-painel mapa-painel--esq"
+           x-bind:class="esq && 'is-aberto'" x-bind:inert="!esq">
+      <nav class="mapa-abas" role="tablist" aria-label="{% translate 'Seções do painel de controle' %}">
+        <button type="button" role="tab" class="mapa-aba" id="tab-filtros"
+                x-bind:class="abaEsq === 'filtros' && 'is-ativa'"
+                x-bind:aria-selected="abaEsq === 'filtros'" aria-controls="aba-filtros"
+                @click="abaEsq = 'filtros'" @keydown.right.prevent="abaEsq = 'camadas'">
+          {% include "firemap/components/icone.html" with nome="filtro" %}
+          <span class="rotulo">{% translate "Filtros" %}</span>
+        </button>
+        <button type="button" role="tab" class="mapa-aba" id="tab-camadas"
+                x-bind:class="abaEsq === 'camadas' && 'is-ativa'"
+                x-bind:aria-selected="abaEsq === 'camadas'" aria-controls="aba-camadas"
+                @click="abaEsq = 'camadas'" @keydown.left.prevent="abaEsq = 'filtros'"
+                @keydown.right.prevent="abaEsq = 'base'">
+          {% include "firemap/components/icone.html" with nome="camadas" %}
+          <span class="rotulo">{% translate "Camadas" %}</span>
+        </button>
+        <button type="button" role="tab" class="mapa-aba" id="tab-base"
+                x-bind:class="abaEsq === 'base' && 'is-ativa'"
+                x-bind:aria-selected="abaEsq === 'base'" aria-controls="aba-base"
+                @click="abaEsq = 'base'" @keydown.left.prevent="abaEsq = 'camadas'">
+          {% include "firemap/components/icone.html" with nome="mapa" %}
+          <span class="rotulo">{% translate "Mapa base" %}</span>
+        </button>
+      </nav>
+
+      {% comment %}
+        x-show, nunca x-if: os selects e checkboxes precisam continuar no DOM mesmo com a
+        aba inativa, senão o recorte devolve vazio e as camadas somem.
+      {% endcomment %}
+      <div id="aba-filtros" role="tabpanel" aria-labelledby="tab-filtros" class="mapa-secao"
+           x-show="abaEsq === 'filtros'">
+        {% include "firemap/components/filtros.html" %}
+      </div>
+      <div id="aba-camadas" role="tabpanel" aria-labelledby="tab-camadas" class="mapa-secao"
+           x-show="abaEsq === 'camadas'" x-cloak>
+        {% include "firemap/components/camadas.html" %}
+      </div>
+      <div id="aba-base" role="tabpanel" aria-labelledby="tab-base" class="mapa-secao"
+           x-show="abaEsq === 'base'" x-cloak>
+        {% include "firemap/components/basemaps.html" %}
+      </div>
+    </aside>
+
+    {% comment %} os botões são irmãos do painel: precisam continuar visíveis com ele fechado {% endcomment %}
+    <button type="button" class="mapa-recolher mapa-recolher--esq"
+            aria-controls="painel-esq" x-bind:aria-expanded="esq" @click="alternar('esq')"
+            x-bind:title="esq ? '{% translate 'Recolher o painel de controle' %}' : '{% translate 'Abrir o painel de controle' %}'">
+      <span aria-hidden="true" x-text="esq ? '‹' : '›'">‹</span>
+    </button>
+
+    <button type="button" class="mapa-recolher mapa-recolher--dir"
+            aria-controls="painel-dir" x-bind:aria-expanded="dir" @click="alternar('dir')"
+            x-bind:title="dir ? '{% translate 'Recolher a análise' %}' : '{% translate 'Abrir a análise' %}'">
+      <span aria-hidden="true" x-text="dir ? '›' : '‹'">›</span>
+    </button>
+
+    {% comment %} painel direito: uma aba de estatística por camada de fogo {% endcomment %}
+    <aside id="painel-dir" class="mapa-painel mapa-painel--dir"
+           x-bind:class="dir && 'is-aberto'" x-bind:inert="!dir">
+      <nav class="mapa-rail" role="tablist" aria-orientation="vertical"
+           aria-label="{% translate 'Seções da análise' %}">
+        {% for layer in data_layers %}
+          <button type="button" role="tab" class="mapa-rail-aba" id="tab-{{ layer.id }}"
+                  x-bind:class="abaDir === '{{ layer.id }}' && 'is-ativa'"
+                  x-bind:aria-selected="abaDir === '{{ layer.id }}'" aria-controls="aba-{{ layer.id }}"
+                  @click="abaDir = '{{ layer.id }}'">
+            {% include "firemap/components/icone.html" with nome=layer.id %}
+            <span class="rotulo">{{ layer.label }}</span>
+          </button>
+        {% endfor %}
+        <button type="button" role="tab" class="mapa-rail-aba" id="tab-fontes"
+                x-bind:class="abaDir === 'fontes' && 'is-ativa'"
+                x-bind:aria-selected="abaDir === 'fontes'" aria-controls="aba-fontes"
+                @click="abaDir = 'fontes'">
+          {% include "firemap/components/icone.html" with nome="fontes" %}
+          <span class="rotulo">{% translate "Fontes" %}</span>
+        </button>
+      </nav>
+      <div class="mapa-rail-conteudo">
+        {% for layer in data_layers %}
+          <section id="aba-{{ layer.id }}" role="tabpanel" aria-labelledby="tab-{{ layer.id }}"
+                   x-show="abaDir === '{{ layer.id }}'" {% if not forloop.first %}x-cloak{% endif %}>
+            <p class="rotulo text-xs text-base-content/50">{{ layer.name }}</p>
+            <p class="mapa-recorte-dir mt-1" data-recorte-resumo="{{ layer.id }}">{% translate "Brasil" %}</p>
+            {% comment %} preenchido por estatisticas.js a partir de /mapa/estatisticas/ {% endcomment %}
+            <div class="mapa-stats" data-stats="{{ layer.id }}"></div>
+          </section>
+        {% endfor %}
+        <section id="aba-fontes" role="tabpanel" aria-labelledby="tab-fontes"
+                 x-show="abaDir === 'fontes'" x-cloak>
+          {% include "firemap/components/fontes.html" %}
+        </section>
+      </div>
+    </aside>
+
+    {% if not gee_available %}
+      <div class="alert alert-error absolute left-1/2 -translate-x-1/2 bottom-4 z-30 w-auto max-w-lg">
+        <span class="text-sm">
+          {% translate "Não foi possível conectar ao Google Earth Engine. Confira a credencial em GEE_CREDENTIALS_PATH." %}
+        </span>
+      </div>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

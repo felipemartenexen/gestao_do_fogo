@@ -1,0 +1,16 @@
+{% load i18n %}
+<footer class="mt-16">
+  {% comment %}Régua da rampa de fogo, ecoando a barra do impresso.{% endcomment %}
+  <div class="faixa-fogo" aria-hidden="true"></div>
+  <div class="bg-base-100 border-t border-base-300">
+    <div class="container mx-auto px-4 py-6 text-center text-base-content/70">
+      <p class="rotulo text-sm text-base-content">{{ project_meta.NAME }}</p>
+      <p class="text-sm mt-1">
+        {% translate "Copyright" %} <span id="copyright-year">2026</span>
+      </p>
+    </div>
+  </div>
+</footer>
+<script>
+    document.getElementById('copyright-year').innerText = (new Date()).getFullYear();
+</script>

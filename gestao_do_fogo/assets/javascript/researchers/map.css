@@ -1,0 +1,50 @@
+/* Marcador próprio do mapa de pesquisadores (ver map.js). */
+.researcher-marker {
+  /* --fogo-4 do design system: laranja queimado, legível sobre as tiles do OSM */
+  color: var(--fogo-4, #d95b1e);
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+
+.researcher-marker:hover {
+  color: var(--fogo-5, #a32b1b);
+}
+
+/* Clusters seguem a rampa de fogo: quanto mais gente, mais quente. */
+.marker-cluster-small {
+  background-color: color-mix(in srgb, var(--fogo-2, #f6c288) 60%, transparent);
+}
+.marker-cluster-small div {
+  background-color: var(--fogo-2, #f6c288);
+  color: var(--ink, #1c1b1a);
+}
+.marker-cluster-medium {
+  background-color: color-mix(in srgb, var(--fogo-3, #ee8f3b) 60%, transparent);
+}
+.marker-cluster-medium div {
+  background-color: var(--fogo-3, #ee8f3b);
+  color: var(--ink, #1c1b1a);
+}
+.marker-cluster-large {
+  background-color: color-mix(in srgb, var(--fogo-5, #a32b1b) 55%, transparent);
+}
+.marker-cluster-large div {
+  background-color: var(--fogo-5, #a32b1b);
+  color: #ffffff;
+}
+.marker-cluster div {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* O popup padrão do Leaflet é branco fixo; deixamos ele seguir o tema do site. */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-base-100, #fff);
+  color: var(--color-base-content, #1f2937);
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem 1rem;
+}

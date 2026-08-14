@@ -1,0 +1,186 @@
+{% extends "web/app/app_base.html" %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <p class="rotulo text-sm text-[var(--vermelho-700)]">{% translate "Administração" %}</p>
+        <h1 class="text-2xl">{% translate "Controle de acesso" %}</h1>
+        <p class="text-sm text-base-content/70 mt-1">
+          {% translate "Quem entra na plataforma, com qual papel, e quais perfis de pesquisador aguardam revisão." %}
+        </p>
+      </div>
+      <a href="{% url 'admin:users_customuser_changelist' %}" class="btn btn-sm btn-outline">
+        {% translate "Abrir no admin do Django" %}
+      </a>
+    </div>
+
+    {% comment %} números {% endcomment %}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+      <div class="border border-base-300 p-3">
+        <div class="text-2xl font-display font-bold tabular">{{ counts.total }}</div>
+        <div class="text-xs uppercase tracking-wide text-base-content/60">{% translate "contas" %}</div>
+      </div>
+      <div class="border border-base-300 p-3">
+        <div class="text-2xl font-display font-bold tabular text-[var(--verde-700)]">{{ counts.ativos }}</div>
+        <div class="text-xs uppercase tracking-wide text-base-content/60">{% translate "ativas" %}</div>
+      </div>
+      <div class="border border-base-300 p-3">
+        <div class="text-2xl font-display font-bold tabular">{{ counts.equipe }}</div>
+        <div class="text-xs uppercase tracking-wide text-base-content/60">{% translate "na equipe" %}</div>
+      </div>
+      <div class="border border-base-300 p-3 {% if pending_profiles %}border-[var(--laranja-500)]{% endif %}">
+        <div class="text-2xl font-display font-bold tabular {% if pending_profiles %}text-[var(--laranja-700)]{% endif %}">
+          {{ pending_profiles }}
+        </div>
+        <div class="text-xs uppercase tracking-wide text-base-content/60">{% translate "perfis a revisar" %}</div>
+      </div>
+    </div>
+
+    {% comment %} filtros {% endcomment %}
+    <form method="get" class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-5 items-end">
+      <div class="sm:col-span-2">
+        <label class="label py-1" for="q"><span class="label-text text-xs">{% translate "Buscar" %}</span></label>
+        <input type="search" id="q" name="q" value="{{ active.q }}" class="input input-bordered input-sm w-full"
+               placeholder="{% translate 'nome ou e-mail' %}">
+      </div>
+      <div>
+        <label class="label py-1" for="papel"><span class="label-text text-xs">{% translate "Papel" %}</span></label>
+        <select id="papel" name="papel" class="select select-bordered select-sm w-full">
+          <option value="">{% translate "Todos" %}</option>
+          {% for value, label in roles %}
+            <option value="{{ value }}" {% if active.papel == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="label py-1" for="status"><span class="label-text text-xs">{% translate "Situação" %}</span></label>
+        <select id="status" name="status" class="select select-bordered select-sm w-full">
+          <option value="">{% translate "Todas" %}</option>
+          <option value="ativos" {% if active.status == 'ativos' %}selected{% endif %}>{% translate "Ativas" %}</option>
+          <option value="inativos" {% if active.status == 'inativos' %}selected{% endif %}>{% translate "Desativadas" %}</option>
+          <option value="pesquisadores" {% if active.status == 'pesquisadores' %}selected{% endif %}>{% translate "Com perfil de pesquisador" %}</option>
+          <option value="aguardando" {% if active.status == 'aguardando' %}selected{% endif %}>{% translate "Perfil aguardando revisão" %}</option>
+        </select>
+      </div>
+      <div class="sm:col-span-4 flex items-center gap-2">
+        <button type="submit" class="btn btn-sm btn-primary">{% translate "Filtrar" %}</button>
+        {% if has_filters %}
+          <a href="{% url 'dashboard:access_control' %}" class="btn btn-sm btn-ghost">{% translate "Limpar" %}</a>
+        {% endif %}
+        <span class="text-sm text-base-content/60 ml-auto">
+          {% blocktranslate count counter=total %}{{ counter }} conta{% plural %}{{ counter }} contas{% endblocktranslate %}
+        </span>
+      </div>
+    </form>
+  </section>
+
+  {% comment %} tabela {% endcomment %}
+  <section class="app-card">
+    <div class="overflow-x-auto">
+      <table class="table table-sm w-full">
+        <thead>
+          <tr>
+            <th>{% translate "Pessoa" %}</th>
+            <th>{% translate "Papel" %}</th>
+            <th>{% translate "Perfil de pesquisador" %}</th>
+            <th>{% translate "Último acesso" %}</th>
+            <th class="text-right">{% translate "Ações" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr class="{% if not row.user.is_active %}opacity-50{% endif %}">
+              <td>
+                <div class="font-medium">{{ row.user.get_display_name }}</div>
+                <div class="text-xs text-base-content/60">{{ row.user.email }}</div>
+                {% if not row.user.is_active %}
+                  <span class="badge badge-xs badge-error mt-1">{% translate "desativada" %}</span>
+                {% elif not row.user.has_verified_email %}
+                  <span class="badge badge-xs badge-ghost mt-1">{% translate "e-mail não verificado" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                <form method="post" action="{% url 'dashboard:update_user' row.user.pk %}" class="flex gap-1">
+                  {% csrf_token %}
+                  <input type="hidden" name="acao" value="papel">
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                  <select name="papel" class="select select-xs select-bordered"
+                          {% if row.user == request.user %}disabled{% endif %}>
+                    {% for value, label in roles %}
+                      <option value="{{ value }}" {% if row.role == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                  {% if row.user != request.user %}
+                    <button type="submit" class="btn btn-xs btn-ghost" title="{% translate 'Salvar papel' %}">✓</button>
+                  {% endif %}
+                </form>
+              </td>
+              <td>
+                {% if row.researcher %}
+                  <a href="{{ row.researcher.get_absolute_url }}" class="link link-hover text-sm">
+                    {{ row.researcher.full_name }}
+                  </a>
+                  <div class="mt-1">
+                    <span class="badge badge-xs {% if row.researcher.status == 'approved' %}badge-success{% elif row.researcher.status == 'rejected' %}badge-error{% else %}badge-warning{% endif %}">
+                      {{ row.researcher.get_status_display }}
+                    </span>
+                    {% if not row.researcher.consent_public %}
+                      <span class="badge badge-xs badge-outline">{% translate "sem divulgação" %}</span>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <span class="text-base-content/40 text-sm">—</span>
+                {% endif %}
+              </td>
+              <td class="text-sm tabular">
+                {% if row.user.last_login %}{{ row.user.last_login|date:"d/m/Y H:i" }}
+                {% else %}<span class="text-base-content/40">{% translate "nunca" %}</span>{% endif %}
+              </td>
+              <td class="text-right whitespace-nowrap">
+                {% if row.researcher and row.researcher.status == 'pending' %}
+                  <form method="post" action="{% url 'dashboard:update_user' row.user.pk %}" class="inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="acao" value="aprovar_perfil">
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="btn btn-xs btn-primary">{% translate "Aprovar perfil" %}</button>
+                  </form>
+                {% endif %}
+                {% if row.user != request.user %}
+                  <form method="post" action="{% url 'dashboard:update_user' row.user.pk %}" class="inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="acao" value="{% if row.user.is_active %}desativar{% else %}ativar{% endif %}">
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="btn btn-xs {% if row.user.is_active %}btn-ghost{% else %}btn-outline{% endif %}">
+                      {% if row.user.is_active %}{% translate "Desativar" %}{% else %}{% translate "Reativar" %}{% endif %}
+                    </button>
+                  </form>
+                {% else %}
+                  <span class="text-xs text-base-content/40">{% translate "você" %}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="text-center py-8 text-base-content/60">
+              {% translate "Nenhuma conta encontrada com esses filtros." %}
+            </td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if page_obj.has_other_pages %}
+      <div class="join flex justify-center mt-6">
+        {% if page_obj.has_previous %}
+          <a class="join-item btn btn-sm" href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.previous_page_number }}">«</a>
+        {% endif %}
+        <span class="join-item btn btn-sm btn-disabled">
+          {% blocktranslate with num=page_obj.number total=page_obj.paginator.num_pages %}Página {{ num }} de {{ total }}{% endblocktranslate %}
+        </span>
+        {% if page_obj.has_next %}
+          <a class="join-item btn btn-sm" href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.next_page_number }}">»</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

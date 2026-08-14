@@ -1,0 +1,8 @@
+{% extends 'error_base.html' %}
+{% load i18n %}
+{% block error_details %}
+  <h1 class="text-3xl font-bold mb-2">{% translate "Ops. Requisições demais." %}</h1>
+  <h2 class="text-xl mb-1">
+    {% translate "Tente de novo em alguns minutos. Se o problema persistir, avise a gente." %}
+  </h2>
+{% endblock %}

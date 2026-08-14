@@ -1,0 +1,17 @@
+{% comment %}
+  Foto do pesquisador, ou as iniciais quando não há foto enviada.
+  Espera: researcher, size (classes de tamanho), text_size.
+{% endcomment %}
+{% if researcher.photo %}
+  <div class="avatar shrink-0">
+    <div class="{{ size }} rounded-full ring-1 ring-base-300">
+      <img src="{{ researcher.photo.url }}" alt="{{ researcher.full_name }}" loading="lazy">
+    </div>
+  </div>
+{% else %}
+  <div class="avatar avatar-placeholder shrink-0">
+    <div class="{{ size }} rounded-full bg-primary/10 text-primary ring-1 ring-base-300">
+      <span class="{{ text_size }} font-semibold">{{ researcher.initials }}</span>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends "web/app/app_base.html" %}
+{% load i18n %}
+{% block page_title %}{% translate "Erro de autenticação" %}{% endblock %}
+{% block sidebar-nav %}
+  {% with 'profile' as active_tab %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+{% block app %}
+  <div class="app-card">
+    <h1 class="text-3xl font-bold mb-2">{% translate "Falha no login pela rede social" %}</h1>
+    <p class="text-xl mb-1">{% translate "Ocorreu um erro ao tentar entrar pela sua rede social." %}</p>
+  </div>
+{% endblock app %}

@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load wagtailcore_tags %}
+{% if latest_news %}
+  <section class="container mx-auto px-4 py-14 max-w-6xl">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-8">
+      <div>
+        <p class="rotulo text-sm text-[var(--vermelho-700)]">{% translate "Acontece na rede" %}</p>
+        <h2 class="text-3xl mt-1">{% translate "Últimas notícias" %}</h2>
+      </div>
+      {% slugurl 'noticias' as noticias_url %}
+      {% if noticias_url %}
+        <a href="{{ noticias_url }}" class="link link-primary text-sm">{% translate "Ver todas" %} →</a>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for post in latest_news %}
+        <a href="{% pageurl post %}"
+           class="card bg-base-100 border border-base-300 hover:border-primary transition-colors h-full">
+          <div class="card-body p-5">
+            <time class="rotulo text-xs text-base-content/50" datetime="{{ post.date|date:'Y-m-d' }}">
+              {{ post.date|date:"d \d\e F \d\e Y" }}
+            </time>
+            <h3 class="text-lg mt-1 mb-2 leading-tight">{{ post.title }}</h3>
+            <p class="text-sm text-base-content/70 line-clamp-4">{{ post.intro }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

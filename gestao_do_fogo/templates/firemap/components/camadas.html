@@ -1,0 +1,84 @@
+{% load i18n %}
+{% comment %}
+  Dois grupos: o que é fogo e o que é referência. Os limites não têm período nem
+  estatística, e misturá-los com o dado faria o usuário procurar um slider que não existe.
+
+  Período e legenda aparecem só na camada ligada: o ano de uma camada apagada não significa
+  nada, e mostrar tudo faria a lista passar de mil pixels de rolagem.
+{% endcomment %}
+<div class="mapa-grupo">
+  <div class="mapa-grupo-topo">
+    <p class="rotulo text-xs text-base-content/50">{% translate "Fogo" %}</p>
+    <label class="mapa-sinc" title="{% translate 'Move o ano de todas as camadas juntas' %}">
+      <input type="checkbox" class="toggle toggle-xs toggle-primary" data-sincronizar checked>
+      <span>{% translate "anos juntos" %}</span>
+    </label>
+  </div>
+
+  {% for layer in data_layers %}
+    <div class="mapa-camada" data-camada="{{ layer.id }}">
+      <label class="flex items-start gap-2 cursor-pointer" for="layer-{{ layer.id }}">
+        <input type="checkbox"
+               id="layer-{{ layer.id }}"
+               class="toggle toggle-sm toggle-primary mt-0.5"
+               data-layer="{{ layer.id }}"
+               {% if forloop.first %}checked{% endif %}
+               {% if not layer.available %}disabled{% endif %}>
+        <span class="min-w-0">
+          <span class="mapa-camada-nome block">{{ layer.name }}</span>
+          <span class="mapa-camada-desc block mt-0.5">{{ layer.summary }}</span>
+          <span class="mapa-status" data-layer-status="{{ layer.id }}" data-state="off"></span>
+        </span>
+      </label>
+
+      {% if layer.available %}
+        <div class="mapa-camada-corpo" data-corpo="{{ layer.id }}">
+          {% if layer.uses_year %}
+            {% include "firemap/components/periodo.html" with layer=layer %}
+          {% endif %}
+          <div class="mapa-legenda-itens">
+            {% for color, label in layer.legend.items %}
+              <div class="flex items-center gap-2 text-xs">
+                <i class="mapa-swatch" style="background:#{{ color }}"></i>
+                <span class="text-base-content/70">{{ label }}</span>
+              </div>
+            {% endfor %}
+            {% if layer.legend.note %}
+              <p class="text-xs text-base-content/50">{{ layer.legend.note }}</p>
+            {% endif %}
+            <p class="text-xs text-base-content/40 pt-1">{{ layer.source }}</p>
+          </div>
+        </div>
+      {% else %}
+        <p class="text-xs text-base-content/50 mt-1 ml-10">{{ layer.pending_reason }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="mapa-grupo">
+  <p class="rotulo text-xs text-base-content/50 mb-1">{% translate "Limites" %}</p>
+  <p class="text-xs text-base-content/50 mb-2">
+    {% translate "Contornos de referência. Não seguem o recorte nem o período." %}
+  </p>
+
+  {% for layer in boundary_layers %}
+    <div class="mapa-camada mapa-camada--limite" data-camada="{{ layer.id }}">
+      <label class="flex items-start gap-2 cursor-pointer" for="layer-{{ layer.id }}">
+        <input type="checkbox"
+               id="layer-{{ layer.id }}"
+               class="toggle toggle-sm toggle-primary mt-0.5"
+               data-layer="{{ layer.id }}">
+        <span class="min-w-0 flex items-start gap-2">
+          <i class="mapa-swatch mapa-swatch--linha mt-1"
+             style="background:#{{ layer.legend.items.0.0 }}"></i>
+          <span>
+            <span class="mapa-camada-nome block">{{ layer.name }}</span>
+            <span class="mapa-camada-desc block mt-0.5">{{ layer.summary }}</span>
+            <span class="mapa-status" data-layer-status="{{ layer.id }}" data-state="off"></span>
+          </span>
+        </span>
+      </label>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,42 @@
+{% load i18n %}
+{% comment %}
+  Período de UMA camada. O slider usa `input` para pintar o número enquanto se arrasta e
+  `change` para recarregar: sem essa separação, arrastar de 1985 a 2025 dispararia 40
+  chamadas de getMapId.
+
+  Sem `name=`: os controles com `name` são lidos como recorte territorial, e um <input
+  type=range> não tem `.options[...]`.
+{% endcomment %}
+<div class="mapa-periodo" data-periodo="{{ layer.id }}">
+  <div class="mapa-periodo-topo">
+    <label class="rotulo text-[0.65rem] text-base-content/50" for="ano-{{ layer.id }}">
+      {% translate "Ano" %}
+    </label>
+    <output class="mapa-periodo-ano tabular" for="ano-{{ layer.id }}" data-ano-valor="{{ layer.id }}">
+      {{ last_year }}
+    </output>
+  </div>
+  <input type="range"
+         id="ano-{{ layer.id }}"
+         class="mapa-range"
+         data-ano="{{ layer.id }}"
+         min="{{ layer.first_year }}"
+         max="{{ last_year }}"
+         step="1"
+         value="{{ last_year }}"
+         aria-label="{% blocktranslate with nome=layer.name %}Ano da camada {{ nome }}{% endblocktranslate %}">
+  <div class="mapa-periodo-extremos tabular">
+    <span>{{ layer.first_year }}</span>
+    <span>{{ last_year }}</span>
+  </div>
+
+  {% if layer.uses_month %}
+    <select data-mes="{{ layer.id }}" class="select select-bordered select-xs w-full mt-2"
+            aria-label="{% blocktranslate with nome=layer.name %}Mês da camada {{ nome }}{% endblocktranslate %}">
+      <option value="">{% translate "Ano inteiro" %}</option>
+      {% for value, label in months %}
+        <option value="{{ value }}">{{ label }}</option>
+      {% endfor %}
+    </select>
+  {% endif %}
+</div>

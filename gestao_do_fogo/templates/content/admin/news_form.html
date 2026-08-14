@@ -1,0 +1,39 @@
+{% extends "web/app/app_base.html" %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <a href="{% url 'content:news_list' %}" class="text-sm link link-hover opacity-70">
+      ← {% translate "Todas as notícias" %}
+    </a>
+    <h1 class="text-2xl mt-2">
+      {% if post %}{% translate "Editar notícia" %}{% else %}{% translate "Nova notícia" %}{% endif %}
+    </h1>
+
+    <form method="post" class="mt-5 space-y-4" novalidate>
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-error">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <div class="grid grid-cols-1 sm:grid-cols-[1fr_12rem] gap-4">
+        {% include "researchers/components/field.html" with field=form.title %}
+        {% include "researchers/components/field.html" with field=form.date %}
+      </div>
+      {% include "researchers/components/field.html" with field=form.intro %}
+      {% include "researchers/components/field.html" with field=form.body %}
+
+      <div class="flex items-center gap-3 pt-2">
+        <button type="submit" class="btn btn-primary">
+          {% if post %}{% translate "Salvar e publicar" %}{% else %}{% translate "Publicar" %}{% endif %}
+        </button>
+        <a href="{% url 'content:news_list' %}" class="btn btn-ghost">{% translate "Cancelar" %}</a>
+        {% if post and post.live %}
+          <a href="{{ post.url }}" target="_blank" rel="noopener" class="link link-primary text-sm ml-auto">
+            {% translate "ver no site" %} →
+          </a>
+        {% endif %}
+      </div>
+    </form>
+  </section>
+{% endblock %}

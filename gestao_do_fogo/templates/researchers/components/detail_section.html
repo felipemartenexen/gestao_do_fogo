@@ -1,0 +1,12 @@
+{% comment %}
+  Bloco de texto do perfil, renderizado só quando há conteúdo.
+  Espera: title, body.
+{% endcomment %}
+{% if body %}
+  <div class="card bg-base-100 border border-base-300 mt-4">
+    <div class="card-body">
+      <h2 class="card-title text-lg">{{ title }}</h2>
+      <p class="whitespace-pre-line">{{ body }}</p>
+    </div>
+  </div>
+{% endif %}

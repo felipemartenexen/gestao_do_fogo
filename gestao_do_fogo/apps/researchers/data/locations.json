@@ -1,0 +1,537 @@
+{
+ "Alfenas|MG|Brasil": {
+  "lat": -21.4297405,
+  "lon": -45.9479419,
+  "query": "Alfenas, Minas Gerais, Brasil"
+ },
+ "Alto Paraíso de Goias|GO|Brasil": {
+  "lat": -14.1304779,
+  "lon": -47.5100161,
+  "query": "Alto Paraíso de Goias, Goiás, Brasil"
+ },
+ "Alto Paraíso de Goiás|GO|Brasil": {
+  "lat": -14.1304779,
+  "lon": -47.5100161,
+  "query": "Alto Paraíso de Goiás, Goiás, Brasil"
+ },
+ "Anápolis|GO|Brasil": {
+  "lat": -16.3332828,
+  "lon": -48.9525756,
+  "query": "Anápolis, Goiás, Brasil"
+ },
+ "Ariquemes|RO|Brasil": {
+  "lat": -9.9076522,
+  "lon": -63.033069,
+  "query": "Ariquemes, Rondônia, Brasil"
+ },
+ "Barra do Garças|MT|Brasil": {
+  "lat": -15.8915907,
+  "lon": -52.2618392,
+  "query": "Barra do Garças, Mato Grosso, Brasil"
+ },
+ "Barão de Melgaço|MT|Brasil": {
+  "lat": -16.1956788,
+  "lon": -55.9668317,
+  "query": "Barão de Melgaço, Mato Grosso, Brasil"
+ },
+ "Belo Horizonte|MG|Brasil": {
+  "lat": -19.9227318,
+  "lon": -43.9450948,
+  "query": "Belo Horizonte, Minas Gerais, Brasil"
+ },
+ "Belém|PA|Brasil": {
+  "lat": -1.45056,
+  "lon": -48.4682453,
+  "query": "Belém, Pará, Brasil"
+ },
+ "Blumenau|SC|Brasil": {
+  "lat": -26.9195567,
+  "lon": -49.0658025,
+  "query": "Blumenau, Santa Catarina, Brasil"
+ },
+ "Boa Vista - Roraima (RR)|RR|Brasil": {
+  "lat": 2.8467389,
+  "lon": -60.69089,
+  "query": "Boa Vista - Roraima (RR), Roraima, Brasil"
+ },
+ "Boa Vista|AM|Brasil": {
+  "lat": -2.726727,
+  "lon": -59.887515,
+  "query": "Boa Vista, Amazonas, Brasil"
+ },
+ "Boa Vista|RR|Brasil": {
+  "lat": 2.8208478,
+  "lon": -60.6719582,
+  "query": "Boa Vista, Roraima, Brasil"
+ },
+ "Bogotá D.C.||Colômbia": {
+  "lat": 4.2834715,
+  "lon": -74.1753606,
+  "query": "Bogotá D.C., Colômbia"
+ },
+ "Botafogo|RJ|Brasil": {
+  "lat": -22.9515096,
+  "lon": -43.1862969,
+  "query": "Botafogo, Rio de Janeiro, Brasil"
+ },
+ "Brasília|DF|Brasil": {
+  "lat": -15.7939869,
+  "lon": -47.8828,
+  "query": "Brasília, Distrito Federal, Brasil"
+ },
+ "Brasília||Brasil": {
+  "lat": -15.7939869,
+  "lon": -47.8828,
+  "query": "Brasília, Brasil"
+ },
+ "Brasíília|DF|Brasil": {
+  "lat": -15.7508868,
+  "lon": -47.9250462,
+  "query": "Brasíília, Distrito Federal, Brasil"
+ },
+ "CHAPADA DOS GUIMARÃES|MT|Brasil": {
+  "lat": -15.464343,
+  "lon": -55.749857,
+  "query": "CHAPADA DOS GUIMARÃES, Mato Grosso, Brasil"
+ },
+ "CRATO|CE|Brasil": {
+  "lat": -7.2885006,
+  "lon": -39.4820298,
+  "query": "CRATO, Ceará, Brasil"
+ },
+ "Cabedelo|PB|Brasil": {
+  "lat": -6.97324,
+  "lon": -34.8351609,
+  "query": "Cabedelo, Paraíba, Brasil"
+ },
+ "Campinas|SP|Brasil": {
+  "lat": -22.9056391,
+  "lon": -47.059564,
+  "query": "Campinas, São Paulo, Brasil"
+ },
+ "Campo Grande|MS|Brasil": {
+  "lat": -20.4640173,
+  "lon": -54.6162947,
+  "query": "Campo Grande, Mato Grosso do Sul, Brasil"
+ },
+ "Campo Grande|MT|Brasil": {
+  "lat": -15.5948569,
+  "lon": -56.0962419,
+  "query": "Campo Grande, Mato Grosso, Brasil"
+ },
+ "Chapada dos Guimarães|MT|Brasil": {
+  "lat": -15.464343,
+  "lon": -55.749857,
+  "query": "Chapada dos Guimarães, Mato Grosso, Brasil"
+ },
+ "Cleveland||Estados Unidos": {
+  "lat": 41.4996574,
+  "lon": -81.6936772,
+  "query": "Cleveland, Estados Unidos"
+ },
+ "Corumbá|MS|Brasil": {
+  "lat": -19.0006027,
+  "lon": -57.6507535,
+  "query": "Corumbá, Mato Grosso do Sul, Brasil"
+ },
+ "Cruzeiro do Sul|AC|Brasil": {
+  "lat": -7.6362478,
+  "lon": -72.6691649,
+  "query": "Cruzeiro do Sul, Acre, Brasil"
+ },
+ "Cuiabá|MT|Brasil": {
+  "lat": -15.5986686,
+  "lon": -56.0991301,
+  "query": "Cuiabá, Mato Grosso, Brasil"
+ },
+ "Curitiba|PR|Brasil": {
+  "lat": -25.4295963,
+  "lon": -49.2712724,
+  "query": "Curitiba, Paraná, Brasil"
+ },
+ "Cáceres|MT|Brasil": {
+  "lat": -16.0644068,
+  "lon": -57.6878972,
+  "query": "Cáceres, Mato Grosso, Brasil"
+ },
+ "Diamantina|MG|Brasil": {
+  "lat": -18.2440862,
+  "lon": -43.6006487,
+  "query": "Diamantina, Minas Gerais, Brasil"
+ },
+ "Distrito Federal|DF|Brasil": {
+  "lat": -15.7508868,
+  "lon": -47.9250462,
+  "query": "Distrito Federal, Distrito Federal, Brasil"
+ },
+ "Dois Vizinhos|PR|Brasil": {
+  "lat": -25.7464681,
+  "lon": -53.0554369,
+  "query": "Dois Vizinhos, Paraná, Brasil"
+ },
+ "Florianópolis|SC|Brasil": {
+  "lat": -27.5973002,
+  "lon": -48.5496098,
+  "query": "Florianópolis, Santa Catarina, Brasil"
+ },
+ "Fortaleza|CE|Brasil": {
+  "lat": -3.7932167,
+  "lon": -38.5280359,
+  "query": "Fortaleza, Ceará, Brasil"
+ },
+ "Foz do Iguaçu|PR|Brasil": {
+  "lat": -25.5304023,
+  "lon": -54.5830692,
+  "query": "Foz do Iguaçu, Paraná, Brasil"
+ },
+ "Goiânia|GO|Brasil": {
+  "lat": -16.680882,
+  "lon": -49.2532691,
+  "query": "Goiânia, Goiás, Brasil"
+ },
+ "Guarapuava|PR|Brasil": {
+  "lat": -25.3950986,
+  "lon": -51.4622016,
+  "query": "Guarapuava, Paraná, Brasil"
+ },
+ "Guaíra|PR|Brasil": {
+  "lat": -24.0851924,
+  "lon": -54.2567519,
+  "query": "Guaíra, Paraná, Brasil"
+ },
+ "Gurupi|TO|Brasil": {
+  "lat": -11.72794,
+  "lon": -49.068046,
+  "query": "Gurupi, Tocantins, Brasil"
+ },
+ "Ilha Solteira|SP|Brasil": {
+  "lat": -20.4281001,
+  "lon": -51.3410871,
+  "query": "Ilha Solteira, São Paulo, Brasil"
+ },
+ "Jundiaí|SP|Brasil": {
+  "lat": -23.1887668,
+  "lon": -46.884506,
+  "query": "Jundiaí, São Paulo, Brasil"
+ },
+ "Lages|SC|Brasil": {
+  "lat": -27.8165664,
+  "lon": -50.325883,
+  "query": "Lages, Santa Catarina, Brasil"
+ },
+ "Lagoa da Confusão|TO|Brasil": {
+  "lat": -10.7883045,
+  "lon": -49.6224431,
+  "query": "Lagoa da Confusão, Tocantins, Brasil"
+ },
+ "Lençóis|BA|Brasil": {
+  "lat": -12.5615323,
+  "lon": -41.3895344,
+  "query": "Lençóis, Bahia, Brasil"
+ },
+ "Limeira|SP|Brasil": {
+  "lat": -22.5615068,
+  "lon": -47.401766,
+  "query": "Limeira, São Paulo, Brasil"
+ },
+ "Macapá|AP|Brasil": {
+  "lat": 0.0401529,
+  "lon": -51.0569588,
+  "query": "Macapá, Amapá, Brasil"
+ },
+ "Mage|RJ|Brasil": {
+  "lat": -22.6042779,
+  "lon": -43.1081091,
+  "query": "Mage, Rio de Janeiro, Brasil"
+ },
+ "Mambaí|GO|Brasil": {
+  "lat": -14.4970828,
+  "lon": -46.1115108,
+  "query": "Mambaí, Goiás, Brasil"
+ },
+ "Mambaí||Brasil": {
+  "lat": -14.4970828,
+  "lon": -46.1115108,
+  "query": "Mambaí, Brasil"
+ },
+ "Manaus|AM|Brasil": {
+  "lat": -3.1316333,
+  "lon": -59.9825041,
+  "query": "Manaus, Amazonas, Brasil"
+ },
+ "Manaus||Brasil": {
+  "lat": -3.1316333,
+  "lon": -59.9825041,
+  "query": "Manaus, Brasil"
+ },
+ "Monte Carmelo|MG|Brasil": {
+  "lat": -18.7260939,
+  "lon": -47.4958859,
+  "query": "Monte Carmelo, Minas Gerais, Brasil"
+ },
+ "Montes Claros|MG|Brasil": {
+  "lat": -16.7495727,
+  "lon": -43.8687268,
+  "query": "Montes Claros, Minas Gerais, Brasil"
+ },
+ "New Haven||Estados Unidos": {
+  "lat": 41.3082138,
+  "lon": -72.9250518,
+  "query": "New Haven, Estados Unidos"
+ },
+ "Niterói|RJ|Brasil": {
+  "lat": -22.8884,
+  "lon": -43.1147,
+  "query": "Niterói, Rio de Janeiro, Brasil"
+ },
+ "Norfolk||Reino Unido": {
+  "lat": 52.666667,
+  "lon": 1.0,
+  "query": "Norfolk, Reino Unido"
+ },
+ "Norwich||Reino Unido": {
+  "lat": 52.6285576,
+  "lon": 1.2923954,
+  "query": "Norwich, Reino Unido"
+ },
+ "Nova Iguaçu|RJ|Brasil": {
+  "lat": -22.7592175,
+  "lon": -43.4508728,
+  "query": "Nova Iguaçu, Rio de Janeiro, Brasil"
+ },
+ "Nova Xavantina|MT|Brasil": {
+  "lat": -14.6794165,
+  "lon": -52.351994,
+  "query": "Nova Xavantina, Mato Grosso, Brasil"
+ },
+ "N||Brasil": {
+  "lat": -19.8516634,
+  "lon": -44.0279863,
+  "query": "N, Brasil"
+ },
+ "Oxford|MT|Reino Unido": {
+  "lat": 51.7520131,
+  "lon": -1.2578499,
+  "query": "Oxford, MT, Reino Unido"
+ },
+ "Oxford||Reino Unido": {
+  "lat": 51.7520131,
+  "lon": -1.2578499,
+  "query": "Oxford, Reino Unido"
+ },
+ "Palmas|TO|Brasil": {
+  "lat": -10.1837852,
+  "lon": -48.3336423,
+  "query": "Palmas, Tocantins, Brasil"
+ },
+ "Paracambi|RJ|Brasil": {
+  "lat": -22.6198963,
+  "lon": -43.7282043,
+  "query": "Paracambi, Rio de Janeiro, Brasil"
+ },
+ "Paracatu|MG|Brasil": {
+  "lat": -17.2174056,
+  "lon": -46.8707514,
+  "query": "Paracatu, Minas Gerais, Brasil"
+ },
+ "Paraupebas|PA|Brasil": {
+  "lat": -3.7850826,
+  "lon": -49.575256,
+  "query": "Paraupebas, Pará, Brasil"
+ },
+ "Paris||Brasil": {
+  "lat": -6.7104994,
+  "lon": -69.8996685,
+  "query": "Paris, Brasil"
+ },
+ "Paris||França": {
+  "lat": 48.8534951,
+  "lon": 2.3483915,
+  "query": "Paris, França"
+ },
+ "Parnaíba|PI|Brasil": {
+  "lat": -2.9147515,
+  "lon": -41.7661953,
+  "query": "Parnaíba, Piauí, Brasil"
+ },
+ "Petropolis|RJ|Brasil": {
+  "lat": -22.3880004,
+  "lon": -43.1752593,
+  "query": "Petropolis, Rio de Janeiro, Brasil"
+ },
+ "Petrópolis|RJ|Brasil": {
+  "lat": -22.3880004,
+  "lon": -43.1752593,
+  "query": "Petrópolis, Rio de Janeiro, Brasil"
+ },
+ "Piracaia|SP|Brasil": {
+  "lat": -23.052545,
+  "lon": -46.359374,
+  "query": "Piracaia, São Paulo, Brasil"
+ },
+ "Piracicaba|SP|Brasil": {
+  "lat": -22.725165,
+  "lon": -47.6493269,
+  "query": "Piracicaba, São Paulo, Brasil"
+ },
+ "Porto Alegre|RS|Brasil": {
+  "lat": -30.0324999,
+  "lon": -51.2303767,
+  "query": "Porto Alegre, Rio Grande do Sul, Brasil"
+ },
+ "Porto Velho|RO|Brasil": {
+  "lat": -8.7494525,
+  "lon": -63.8735438,
+  "query": "Porto Velho, Rondônia, Brasil"
+ },
+ "Porto velho|RO|Brasil": {
+  "lat": -8.7494525,
+  "lon": -63.8735438,
+  "query": "Porto velho, Rondônia, Brasil"
+ },
+ "Princeton||Estados Unidos": {
+  "lat": 40.3496953,
+  "lon": -74.6597376,
+  "query": "Princeton, Estados Unidos"
+ },
+ "RIO DE JANEIRO|RJ|Brasil": {
+  "lat": -22.9110137,
+  "lon": -43.2093727,
+  "query": "RIO DE JANEIRO, Rio de Janeiro, Brasil"
+ },
+ "Recife|PE|Brasil": {
+  "lat": -8.0584933,
+  "lon": -34.8848193,
+  "query": "Recife, Pernambuco, Brasil"
+ },
+ "Rio Branco|AC|Brasil": {
+  "lat": -9.9765362,
+  "lon": -67.8220778,
+  "query": "Rio Branco, Acre, Brasil"
+ },
+ "Rio Claro|SP|Brasil": {
+  "lat": -22.4100108,
+  "lon": -47.5603933,
+  "query": "Rio Claro, São Paulo, Brasil"
+ },
+ "Rio de Janeiro|RJ|Brasil": {
+  "lat": -22.9110137,
+  "lon": -43.2093727,
+  "query": "Rio de Janeiro, Rio de Janeiro, Brasil"
+ },
+ "Rj|RJ|Brasil": {
+  "lat": -22.8565739,
+  "lon": -43.2473425,
+  "query": "Rj, Rio de Janeiro, Brasil"
+ },
+ "Salinas|MG|Brasil": {
+  "lat": -16.1701004,
+  "lon": -42.2896546,
+  "query": "Salinas, Minas Gerais, Brasil"
+ },
+ "Salvador|BA|Brasil": {
+  "lat": -12.9822499,
+  "lon": -38.4812772,
+  "query": "Salvador, Bahia, Brasil"
+ },
+ "Samambaia sul|DF|Brasil": {
+  "lat": -15.8690878,
+  "lon": -48.0715818,
+  "query": "Samambaia sul, Distrito Federal, Brasil"
+ },
+ "Seropédica|RJ|Brasil": {
+  "lat": -22.751834,
+  "lon": -43.7082554,
+  "query": "Seropédica, Rio de Janeiro, Brasil"
+ },
+ "Sobral|CE|Brasil": {
+  "lat": -3.8565437,
+  "lon": -40.0438895,
+  "query": "Sobral, Ceará, Brasil"
+ },
+ "Sorriso|MT|Brasil": {
+  "lat": -12.5444887,
+  "lon": -55.7233972,
+  "query": "Sorriso, Mato Grosso, Brasil"
+ },
+ "São Carlos|SP|Brasil": {
+  "lat": -22.0180395,
+  "lon": -47.891154,
+  "query": "São Carlos, São Paulo, Brasil"
+ },
+ "São Gonçalo|RJ|Brasil": {
+  "lat": -22.821635,
+  "lon": -42.9956797,
+  "query": "São Gonçalo, Rio de Janeiro, Brasil"
+ },
+ "São José do Barreiro|RJ|Brasil": {
+  "lat": -22.6413969,
+  "lon": -44.5098656,
+  "query": "São José do Barreiro, Rio de Janeiro, Brasil"
+ },
+ "São José dos Campos|SP|Brasil": {
+  "lat": -23.1867782,
+  "lon": -45.8854538,
+  "query": "São José dos Campos, São Paulo, Brasil"
+ },
+ "São Paulo (sede)|SP|Brasil": {
+  "lat": -23.4588843,
+  "lon": -46.5090214,
+  "query": "São Paulo (sede), São Paulo, Brasil"
+ },
+ "São Paulo|SP|Brasil": {
+  "lat": -23.5506507,
+  "lon": -46.6333824,
+  "query": "São Paulo, São Paulo, Brasil"
+ },
+ "Teresina|PI|Brasil": {
+  "lat": -5.0874608,
+  "lon": -42.8049571,
+  "query": "Teresina, Piauí, Brasil"
+ },
+ "Uberlandia|MG|Brasil": {
+  "lat": -18.9188041,
+  "lon": -48.2767837,
+  "query": "Uberlandia, Minas Gerais, Brasil"
+ },
+ "Uberlândia|MG|Brasil": {
+  "lat": -18.9188041,
+  "lon": -48.2767837,
+  "query": "Uberlândia, Minas Gerais, Brasil"
+ },
+ "Vancouver||Canadá": {
+  "lat": 49.2608724,
+  "lon": -123.113952,
+  "query": "Vancouver, Canadá"
+ },
+ "Vila Bela da Santissima Trindade.|MT|Brasil": {
+  "lat": -15.009904,
+  "lon": -59.961115,
+  "query": "Vila Bela da Santissima Trindade., Mato Grosso, Brasil"
+ },
+ "Viçosa|MG|Brasil": {
+  "lat": -20.7538586,
+  "lon": -42.8815888,
+  "query": "Viçosa, Minas Gerais, Brasil"
+ },
+ "Xapuri|AC|Brasil": {
+  "lat": -10.6511174,
+  "lon": -68.5017902,
+  "query": "Xapuri, Acre, Brasil"
+ },
+ "crato|CE|Brasil": {
+  "lat": -7.2885006,
+  "lon": -39.4820298,
+  "query": "crato, Ceará, Brasil"
+ },
+ "|DF|Brasil": {
+  "lat": -15.7754462,
+  "lon": -47.7970891,
+  "query": "Distrito Federal, Brasil"
+ },
+ "|SP|Brasil": {
+  "lat": -23.5506507,
+  "lon": -46.6333824,
+  "query": "São Paulo, Brasil"
+ }
+}

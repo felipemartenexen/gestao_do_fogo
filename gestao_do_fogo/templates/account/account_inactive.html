@@ -1,0 +1,9 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block page_title %}
+    {% translate "Conta inativa" %}
+{% endblock page_title %}
+{% block content %}
+  <h1 class="text-3xl font-bold mb-2">{% translate "Conta inativa" %}</h1>
+  <h2 class="text-xl mb-1">{% translate "Esta conta está inativa." %}</h2>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% load i18n %}
+{% comment %}
+  Só o recorte territorial. O período saiu daqui e virou controle de cada camada, na aba
+  Camadas: ano é propriedade do dado, não do território, e comparar 2010 com 2025 lado a
+  lado exige que cada camada ande sozinha.
+
+  Os `name` são lidos por Controles.territorio e viram os parâmetros das rotas de tiles e
+  de estatística - renomear qualquer um aqui quebra o mapa.
+{% endcomment %}
+<p class="rotulo text-xs text-base-content/50 mb-3">{% translate "Recorte territorial" %}</p>
+
+<div class="form-control">
+  <label class="label py-1" for="f-bioma"><span class="label-text text-xs">{% translate "Bioma" %}</span></label>
+  <select id="f-bioma" name="bioma" data-filter class="select select-bordered select-sm w-full"
+          {% if not biomes %}disabled{% endif %}>
+    <option value="">{% translate "Todos os biomas" %}</option>
+    {% for biome in biomes %}
+      <option value="{{ biome.code }}">{{ biome.name }}</option>
+    {% endfor %}
+  </select>
+  {% if not biomes %}
+    <p class="text-xs text-base-content/50 mt-1">
+      {% translate "Disponível assim que o vetor de biomas for publicado no Earth Engine." %}
+    </p>
+  {% endif %}
+</div>
+
+<div class="form-control mt-3">
+  <label class="label py-1" for="f-uf"><span class="label-text text-xs">{% translate "Estado" %}</span></label>
+  <select id="f-uf" name="uf" data-filter class="select select-bordered select-sm w-full">
+    <option value="">{% translate "Todos os estados" %}</option>
+    {% for state in states %}
+      <option value="{{ state.code }}">{{ state.name }} ({{ state.uf }})</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="form-control mt-3">
+  <label class="label py-1" for="f-municipio"><span class="label-text text-xs">{% translate "Município" %}</span></label>
+  <select id="f-municipio" name="municipio" data-filter class="select select-bordered select-sm w-full" disabled>
+    <option value="">{% translate "Todos os municípios" %}</option>
+  </select>
+  <p class="text-xs text-base-content/50 mt-1">{% translate "Escolha um estado primeiro." %}</p>
+</div>
+
+<button type="button" class="btn btn-ghost btn-xs mt-4" data-limpar-filtros>
+  {% translate "Limpar recorte" %}
+</button>
+
+<p class="text-xs text-base-content/50 mt-6 pt-4 border-t border-base-300">
+  {% translate "O período de cada camada fica na aba Camadas." %}
+</p>

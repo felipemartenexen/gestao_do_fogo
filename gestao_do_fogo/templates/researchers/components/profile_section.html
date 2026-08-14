@@ -1,0 +1,66 @@
+{% comment %}
+  Bloco "Perfil de pesquisador" dentro de /users/profile/.
+  Espera: researcher_form, researcher (pode ser None para quem ainda não tem perfil).
+{% endcomment %}
+{% load i18n %}
+<section class="app-card" id="pesquisador">
+  <div class="flex flex-wrap items-start justify-between gap-3 mb-1">
+    <div>
+      <h2 class="text-xl">{% translate "Perfil de pesquisador" %}</h2>
+      <p class="text-sm text-base-content/70 mt-1">
+        {% if researcher %}
+          {% translate "Seus dados no mapa da rede Gestão do Fogo." %}
+        {% else %}
+          {% translate "Cadastre-se no mapa da rede Gestão do Fogo. Passa por uma revisão da equipe antes de ficar visível." %}
+        {% endif %}
+      </p>
+    </div>
+    {% if researcher %}
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="badge {% if researcher.status == 'approved' %}badge-success{% elif researcher.status == 'rejected' %}badge-error{% else %}badge-warning{% endif %}">
+          {{ researcher.get_status_display }}
+        </span>
+        {% if researcher.is_public %}
+          <a href="{{ researcher.get_absolute_url }}" class="link link-primary text-sm">{% translate "ver perfil público" %}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if researcher %}
+    {% if not researcher.consent_public %}
+      <div class="alert alert-warning mt-3">
+        <span>{% translate "Sem a autorização de divulgação abaixo, seu perfil fica salvo mas não aparece na página pública nem no mapa." %}</span>
+      </div>
+    {% endif %}
+    {% if researcher.missing_profile_fields %}
+      <div class="alert alert-info mt-3 items-start">
+        <div>
+          <p class="font-medium">{% translate "Seu perfil pode ficar mais completo" %}</p>
+          <p class="text-sm">
+            {% translate "Ainda falta:" %}
+            {% for field in researcher.missing_profile_fields %}
+              <span class="badge badge-sm badge-outline">{{ field }}</span>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    {% endif %}
+    {% if researcher.is_public and not researcher.has_coordinates %}
+      <div class="alert alert-warning mt-3">
+        <span>{% translate "Você ainda não aparece no mapa: não reconhecemos o município da instituição." %}</span>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" action="{% url 'researchers:save_profile' %}" enctype="multipart/form-data" class="mt-4" novalidate>
+    {% csrf_token %}
+    {% include "researchers/components/profile_form.html" %}
+    <div class="flex items-center gap-3 mt-6">
+      <button type="submit" class="btn btn-primary">
+        {% if researcher %}{% translate "Salvar perfil de pesquisador" %}{% else %}{% translate "Enviar cadastro" %}{% endif %}
+      </button>
+      <a href="{% url 'researchers:list' %}" class="btn btn-ghost btn-sm">{% translate "Ver a rede" %}</a>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,15 @@
+{% comment %}Múltipla escolha em caixas lado a lado. Espera: field.{% endcomment %}
+<div class="form-control mt-3">
+  <span class="label-text block mb-1">{{ field.label }}</span>
+  <div class="flex flex-wrap gap-x-6 gap-y-1">
+    {% for choice in field %}
+      <label class="label cursor-pointer justify-start gap-2 py-1" for="{{ choice.id_for_label }}">
+        {{ choice.tag }}
+        <span class="label-text text-sm">{{ choice.choice_label }}</span>
+      </label>
+    {% endfor %}
+  </div>
+  {% for error in field.errors %}
+    <p class="text-xs text-error mt-1">{{ error }}</p>
+  {% endfor %}
+</div>

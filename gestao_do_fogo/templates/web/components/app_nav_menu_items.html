@@ -1,0 +1,86 @@
+{% load i18n %}
+<li class="menu-title">
+  <span>{% translate "Aplicação" %}</span>
+</li>
+<li>
+  <a href="{% url 'web:home' %}" {% if active_tab == 'dashboard' %}class="menu-active"{% endif %}>
+    <i class="fa fa-home h-4 w-4"></i>
+    {% translate "Painel" %}
+  </a>
+</li>
+<li>
+  <a href="{% url 'web:shadcn' %}" {% if active_tab == 'shadcn-demo' %}class="menu-active"{% endif %}>
+    <i class="fa fa-bar-chart-o h-4 w-4"></i>
+    {% translate "Demo Shadcn" %}
+  </a>
+</li>
+<li>
+  <a href="{% url 'chat:chat_home' %}" {% if active_tab == 'ai-chat' %}class="menu-active"{% endif %}>
+    <i class="fa-solid fa-robot h-4 w-4"></i>
+    {% translate "Chat com IA" %}
+  </a>
+</li>
+<li>
+  <a href="{% url 'group_chat:chat_list' %}" {% if active_tab == 'group-chat' %}class="menu-active"{% endif %}>
+    <i class="fa-regular fa-comments h-4 w-4"></i>
+    {% translate "Chat em grupo" %}
+  </a>
+</li>
+{% if not user.is_anonymous %}
+<li class="menu-title">
+  <span>{% translate "Minha conta" %}</span>
+</li>
+<ul class="menu-list">
+  <li>
+    <a href="{% url 'users:user_profile' %}" {% if active_tab == 'profile' %}class="menu-active"{% endif %}>
+      <i class="fa fa-user h-4 w-4"></i>
+      {% translate "Perfil" %}
+    </a>
+  </li>
+  {% if user.has_usable_password %}
+  <li>
+    <a href="{% url 'account_change_password' %}" {% if 'accounts/password/change' in request.path %}class="menu-active"{% endif %}>
+      <i class="fa fa-unlock-alt h-4 w-4"></i>
+      {% translate "Alterar senha" %}
+    </a>
+  </li>
+  {% endif %}
+  <li>
+    <a href="{% url 'account_logout' %}" data-logout-link {% if 'accounts/logout' in request.path %}class="menu-active"{% endif %}>
+      <i class="fa fa-sign-out h-4 w-4"></i>
+      {% translate "Sair" %}
+    </a>
+  </li>
+</ul>
+{% endif %}
+{% if user.is_superuser %}
+<li class="menu-title">
+  <span>{% translate "Administração" %}</span>
+</li>
+<ul class="menu-list">
+  <li>
+    <a href="{% url 'dashboard:dashboard' %}" {% if active_tab == 'project-dashboard' %}class="menu-active"{% endif %}>
+      <i class="fa fa-bar-chart-o h-4 w-4"></i>
+      {% translate "Painel do projeto" %}
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'dashboard:access_control' %}" {% if active_tab == 'access-control' %}class="menu-active"{% endif %}>
+      <i class="fa fa-users-cog h-4 w-4"></i>
+      {% translate "Controle de acesso" %}
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'content:news_list' %}" {% if active_tab == 'news-admin' %}class="menu-active"{% endif %}>
+      <i class="fa fa-newspaper h-4 w-4"></i>
+      {% translate "Gerenciar notícias" %}
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'support:hijack_user' %}" {% if active_tab == 'support' %}class="menu-active"{% endif %}>
+      <i class="fa fa-user-secret h-4 w-4"></i>
+      {% translate "Personificar um usuário" %}
+    </a>
+  </li>
+</ul>
+{% endif %}

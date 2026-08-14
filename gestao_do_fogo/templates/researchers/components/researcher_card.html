@@ -1,0 +1,23 @@
+{% load i18n %}
+<a href="{{ researcher.get_absolute_url }}"
+   class="card bg-base-100 border border-base-300 hover:border-primary transition-colors h-full">
+  <div class="card-body p-4 flex-row gap-4 items-start">
+    {% include "researchers/components/avatar.html" with researcher=researcher size="w-14 h-14" text_size="text-lg" %}
+    <div class="min-w-0 flex-1">
+      <h2 class="font-semibold leading-tight truncate">{{ researcher.full_name }}</h2>
+      {% if researcher.institution %}
+        <p class="text-sm text-base-content/70 line-clamp-2 mt-0.5">{{ researcher.institution }}</p>
+      {% endif %}
+      {% if researcher.location_label %}
+        <p class="text-xs text-base-content/50 mt-1">{{ researcher.location_label }}</p>
+      {% endif %}
+      {% if researcher.biomes.all %}
+        <div class="flex flex-wrap gap-1 mt-2">
+          {% for biome in researcher.biomes.all %}
+            <span class="chip-bioma bioma-{{ biome.slug }}">{{ biome.name }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</a>

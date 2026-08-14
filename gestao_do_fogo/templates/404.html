@@ -1,0 +1,8 @@
+{% extends 'error_base.html' %}
+{% load i18n %}
+{% block error_details %}
+  <h1 class="text-3xl font-bold mb-2">{% translate "Poxa. Não encontramos essa página." %}</h1>
+  <h2 class="text-xl mb-1">
+    {% translate "Se acha que esta página deveria existir, confira se você entrou com a conta certa." %}
+  </h2>
+{% endblock %}

@@ -1,0 +1,342 @@
+/* ==========================================================================
+   Design System - Gestão do Fogo (v0.1)
+
+   Derivado da identidade do Resumo Executivo "Gestão do Fogo na Amazônia"
+   (IPAM, 2025 - diagramação Agência W5).
+
+   Princípios que guiam as escolhas abaixo:
+   - Verde é estrutura, fogo é dado. Verde/oliva para navegação, marca e ações;
+     vermelhos e laranjas ficam reservados para severidade e alerta.
+   - Papel como base: fundo creme (base-200) com superfícies brancas (base-100).
+   - Textura só em display: Rubik Dirt apenas em títulos grandes de marca.
+   ========================================================================== */
+
+/* --- fontes auto-hospedadas (sem requisição a servidor externo) ----------- */
+@import '@fontsource/archivo/400.css';
+@import '@fontsource/archivo/500.css';
+@import '@fontsource/archivo/600.css';
+@import '@fontsource/archivo/700.css';
+@import '@fontsource/oswald/500.css';
+@import '@fontsource/oswald/600.css';
+@import '@fontsource/oswald/700.css';
+@import '@fontsource/rubik-dirt/400.css';
+@import '@fontsource-variable/source-serif-4';
+
+/* --- tokens crus do design system ---------------------------------------- */
+:root {
+  /* Marca - verde institucional IPAM + oliva (bioma Amazônia) */
+  --verde-900: #0f3b26;
+  --verde-700: #1b5e3c;
+  --verde-500: #2e7d4f;
+  --verde-300: #8fbfa0;
+  --verde-100: #e4efe8;
+  --oliva-700: #7e8a3f;
+  --oliva-500: #a6b15e;
+  --oliva-300: #cbd49c;
+  --oliva-100: #edf0dc;
+
+  /* Fogo - vinho > vermelho > laranja > salmão */
+  --vinho-900: #5e1013;
+  --vermelho-700: #a31d22;
+  --vermelho-500: #d7302f;
+  --salmao-300: #efa083;
+  --salmao-100: #f9e2d6;
+  --laranja-700: #b85b10;
+  --laranja-500: #e87722;
+  --laranja-300: #f3b36f;
+  --laranja-100: #fcebd8;
+
+  /* Neutros - papel do impresso + tinta */
+  --ink: #1c1b1a;
+  --cinza-700: #4a4a48;
+  --cinza-500: #7c7c79;
+  --cinza-300: #c9c7c2;
+  --cinza-100: #eae7e1;
+  --papel: #f6f2ea;
+
+  /* Rampa sequencial de fogo (coropléticos de área queimada / severidade) */
+  --fogo-1: #fdebd7;
+  --fogo-2: #f6c288;
+  --fogo-3: #ee8f3b;
+  --fogo-4: #d95b1e;
+  --fogo-5: #a32b1b;
+  --fogo-6: #6e1212;
+
+  /* Dataviz - categóricas dos biomas (Figura 1 do documento) */
+  --dv-bioma-amazonia: #a6b15e;
+  --dv-bioma-caatinga: #7e1416;
+  --dv-bioma-cerrado: #e87722;
+  --dv-bioma-pantanal: #1b5e3c;
+  --dv-bioma-mata-atlantica: #2e7d4f;
+  --dv-bioma-pampa: #cbd49c;
+}
+
+/* --- famílias tipográficas ------------------------------------------------ */
+@theme {
+  --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Oswald', 'Archivo', sans-serif;
+  --font-texture: 'Rubik Dirt', 'Oswald', sans-serif;
+  --font-editorial: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
+}
+
+/* --- tema claro (padrão) -------------------------------------------------- */
+@plugin "daisyui/theme" {
+  name: 'gestao-do-fogo';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* base-100 são as superfícies (cards); base-200 é o papel da página */
+  --color-base-100: #ffffff;
+  --color-base-200: #f6f2ea;
+  --color-base-300: #eae7e1;
+  --color-base-content: #1c1b1a;
+
+  --color-primary: #1b5e3c;
+  --color-primary-content: #ffffff;
+  --color-secondary: #7e8a3f;
+  --color-secondary-content: #ffffff;
+  /* laranja é acento de dado, não de ação: texto sobre ele precisa ser tinta */
+  --color-accent: #e87722;
+  --color-accent-content: #1c1b1a;
+  --color-neutral: #1c1b1a;
+  --color-neutral-content: #f6f2ea;
+
+  --color-info: #3c5ba6;
+  --color-info-content: #ffffff;
+  --color-success: #1e7a45;
+  --color-success-content: #ffffff;
+  --color-warning: #e87722;
+  --color-warning-content: #1c1b1a;
+  --color-error: #d7302f;
+  --color-error-content: #ffffff;
+
+  /* raio contido, ecoando os blocos retos do impresso */
+  --radius-selector: 0.375rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.375rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* --- tema escuro ---------------------------------------------------------- */
+@plugin "daisyui/theme" {
+  name: 'gestao-do-fogo-dark';
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* o verde-900 da capa do relatório vira a base do modo escuro */
+  --color-base-100: #143723;
+  --color-base-200: #0f2a1d;
+  --color-base-300: #24503a;
+  --color-base-content: #e4efe8;
+
+  /* no escuro o verde precisa clarear para manter contraste de texto/ícone */
+  --color-primary: #8fbfa0;
+  --color-primary-content: #0f3b26;
+  --color-secondary: #cbd49c;
+  --color-secondary-content: #1c1b1a;
+  --color-accent: #f3b36f;
+  --color-accent-content: #1c1b1a;
+  --color-neutral: #e4efe8;
+  --color-neutral-content: #0f2a1d;
+
+  --color-info: #9db2e0;
+  --color-info-content: #10203f;
+  --color-success: #7fc79a;
+  --color-success-content: #08301b;
+  --color-warning: #f3b36f;
+  --color-warning-content: #3d2007;
+  --color-error: #ef8a86;
+  --color-error-content: #40090a;
+
+  --radius-selector: 0.375rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.375rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* ==========================================================================
+   Aplicação da tipografia
+   ========================================================================== */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+
+  /* Títulos em condensada caixa-alta, como os rótulos do infográfico. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  h1 {
+    letter-spacing: 0.01em;
+  }
+
+  /* Números tabulares em dados: colunas alinham e não "dançam" ao atualizar. */
+  table td,
+  table th,
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Foco visível padrão do design system. */
+  :focus-visible {
+    outline: 3px solid var(--laranja-500);
+    outline-offset: 2px;
+  }
+}
+
+/* ==========================================================================
+   Componentes do design system
+   ========================================================================== */
+@layer components {
+  /* Título de marca: a textura carimbada só aparece aqui, nunca abaixo de 28px. */
+  .titulo-marca {
+    font-family: var(--font-texture);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+  }
+
+  /* Rótulo condensado em caixa-alta - cabeçalhos de seção e eyebrows. */
+  .rotulo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Bloco numerado vinho + título, ecoando a abertura de seção do impresso. */
+  .sec-num {
+    background: var(--vermelho-700);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Número-destaque de infográfico. */
+  .kpi {
+    border-left: 6px solid var(--laranja-500);
+    padding: 0.75rem 1rem;
+    background: var(--color-base-100);
+  }
+  .kpi-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--vermelho-700);
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-rot {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.875rem;
+    color: var(--cinza-700);
+  }
+
+  /* Faixa da rampa de fogo - usada como régua de severidade no topo de blocos. */
+  .faixa-fogo {
+    height: 6px;
+    background: linear-gradient(
+      90deg,
+      var(--fogo-1),
+      var(--fogo-2),
+      var(--fogo-3),
+      var(--fogo-4),
+      var(--fogo-5),
+      var(--fogo-6)
+    );
+  }
+
+  /*
+    Chip de bioma com a categórica da Figura 1. A cor é reforço, não informação:
+    o nome do bioma vem sempre no texto, então quem não distingue as cores não perde nada.
+  */
+  .chip-bioma {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border: 1px solid var(--color-base-300);
+    border-radius: 999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .chip-bioma::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--bioma, var(--cinza-500));
+    flex: none;
+  }
+  .bioma-amazonia {
+    --bioma: var(--dv-bioma-amazonia);
+  }
+  .bioma-cerrado {
+    --bioma: var(--dv-bioma-cerrado);
+  }
+  .bioma-caatinga {
+    --bioma: var(--dv-bioma-caatinga);
+  }
+  .bioma-pantanal {
+    --bioma: var(--dv-bioma-pantanal);
+  }
+  .bioma-mata-atlantica {
+    --bioma: var(--dv-bioma-mata-atlantica);
+  }
+  .bioma-pampa {
+    --bioma: var(--dv-bioma-pampa);
+  }
+
+  /* Tag sólida em caixa-alta, como as etiquetas do relatório. */
+  .tag-ds {
+    display: inline-block;
+    background: var(--verde-700);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    padding: 0.1875rem 0.625rem;
+  }
+  .tag-ds-laranja {
+    background: var(--laranja-500);
+    color: var(--ink);
+  }
+  .tag-ds-vinho {
+    background: var(--vermelho-700);
+  }
+  .tag-ds-oliva {
+    background: var(--oliva-700);
+  }
+}
+
+/* No modo escuro os tokens crus precisam clarear para seguir legíveis. */
+[data-theme='gestao-do-fogo-dark'] {
+  --cinza-700: #b8c4bb;
+  --vermelho-700: #ef8a86;
+}

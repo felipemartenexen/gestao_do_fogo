@@ -1,0 +1,94 @@
+{% comment %}
+  Corpo do formulário de perfil do pesquisador.
+  Usado dentro de /users/profile/. Espera: researcher_form.
+{% endcomment %}
+{% load i18n %}
+
+{% if researcher_form.non_field_errors %}
+  <div class="alert alert-error mb-4">{{ researcher_form.non_field_errors }}</div>
+{% endif %}
+
+<div class="space-y-6">
+  <div>
+    <h3 class="font-semibold mb-2">{% translate "Identificação" %}</h3>
+    {% include "researchers/components/field.html" with field=researcher_form.full_name %}
+    {% include "researchers/components/field.html" with field=researcher_form.photo %}
+    <div class="form-control mt-2">
+      <label class="label cursor-pointer justify-start gap-3">
+        {{ researcher_form.consent_public }}
+        <span class="label-text">{{ researcher_form.consent_public.label }}</span>
+      </label>
+      <p class="text-xs text-base-content/60 ml-9">{{ researcher_form.consent_public.help_text }}</p>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-2">{% translate "Vínculo institucional" %}</h3>
+    {% include "researchers/components/field.html" with field=researcher_form.institution %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.sector %}
+      {% include "researchers/components/field.html" with field=researcher_form.position %}
+      {% include "researchers/components/field.html" with field=researcher_form.education_level %}
+    </div>
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-1">{% translate "Localização" %}</h3>
+    <p class="text-sm text-base-content/60 mb-2">
+      {% translate "O mapa da rede pode mostrar você pela instituição ou pela cidade onde mora." %}
+    </p>
+    <p class="text-xs uppercase tracking-wide text-base-content/50">{% translate "Instituição" %}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.country %}
+      {% include "researchers/components/field.html" with field=researcher_form.state %}
+      {% include "researchers/components/field.html" with field=researcher_form.city %}
+    </div>
+    <p class="text-xs uppercase tracking-wide text-base-content/50 mt-4">{% translate "Onde você mora" %}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.residence_country %}
+      {% include "researchers/components/field.html" with field=researcher_form.residence_state %}
+      {% include "researchers/components/field.html" with field=researcher_form.residence_city %}
+    </div>
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-2">{% translate "Pesquisa" %}</h3>
+    {% include "researchers/components/field.html" with field=researcher_form.main_research_area %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.years_researching %}
+      {% include "researchers/components/field.html" with field=researcher_form.other_territories %}
+      {% include "researchers/components/field.html" with field=researcher_form.fire_focused %}
+      {% include "researchers/components/field.html" with field=researcher_form.focused_on_brazil %}
+    </div>
+    {% include "researchers/components/checkbox_group.html" with field=researcher_form.biomes %}
+    {% include "researchers/components/checkbox_group.html" with field=researcher_form.research_areas %}
+    {% include "researchers/components/field.html" with field=researcher_form.research_description %}
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-2">{% translate "Atuação" %}</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.develops_technology %}
+      {% include "researchers/components/field.html" with field=researcher_form.involves_communities %}
+      {% include "researchers/components/field.html" with field=researcher_form.works_with_education %}
+    </div>
+    {% include "researchers/components/field.html" with field=researcher_form.technology_description %}
+    {% include "researchers/components/field.html" with field=researcher_form.social_description %}
+    {% include "researchers/components/field.html" with field=researcher_form.education_description %}
+    {% include "researchers/components/field.html" with field=researcher_form.governance_description %}
+  </div>
+
+  <div>
+    <h3 class="font-semibold mb-2">{% translate "Produção, rede e links" %}</h3>
+    {% include "researchers/components/field.html" with field=researcher_form.publications %}
+    {% include "researchers/components/field.html" with field=researcher_form.funding_sources %}
+    {% include "researchers/components/field.html" with field=researcher_form.partnerships %}
+    {% include "researchers/components/field.html" with field=researcher_form.foreign_partnerships %}
+    {% include "researchers/components/field.html" with field=researcher_form.outreach %}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {% include "researchers/components/field.html" with field=researcher_form.lattes_url %}
+      {% include "researchers/components/field.html" with field=researcher_form.orcid_url %}
+      {% include "researchers/components/field.html" with field=researcher_form.linkedin_url %}
+    </div>
+  </div>
+</div>
