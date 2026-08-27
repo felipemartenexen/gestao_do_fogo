@@ -1,0 +1,111 @@
+/* ==========================================================================
+   IDENTIDADE "GESTÃO DO FOGO NA AMAZÔNIA" · base e recursos gráficos
+   Local: assets/styles/identidade/fogo-componentes.css
+   Depende de fogo-theme.css. Só traz o que o daisyUI não resolve sozinho.
+   ========================================================================== */
+
+@layer base{
+  /* Títulos em Built Titling. Como no impresso, sempre em caixa alta. */
+  h1,h2,h3,h4,h5,.pg-title,.pg-subtitle{
+    font-family:var(--font-titulo);
+    font-weight:700;
+    text-transform:uppercase;
+    line-height:1.05;
+    letter-spacing:.01em;
+  }
+  /* Corpo em Zilla Slab com entrelinha de leitura longa. */
+  body{ line-height:1.6; }
+  /* Números tabulares em tabela, para as colunas de área alinharem. */
+  table td,table th,.stat-value{ font-variant-numeric:tabular-nums lining-nums; }
+  /* Foco visível em laranja, a única função de interface do laranja oficial. */
+  :focus-visible{ outline:3px solid var(--color-laranja-400); outline-offset:2px; }
+}
+
+@layer components{
+  /* Botões, selos e cabeçalhos de tabela do daisyUI assumem a titulação.
+     Para desligar a caixa alta, apague este bloco. */
+  .btn,.badge,.tab,.menu li>a,.stat-title{
+    font-family:var(--font-titulo);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .table thead th{
+    font-family:var(--font-titulo);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    background-color:var(--color-bordo-700);
+    color:#FFFFFF;
+  }
+  .table tfoot td{ background-color:var(--color-bordo-700); color:#FFFFFF; font-weight:700; }
+
+  /* ---- rótulo em bloco: o recurso do "DO" e do "NA" no logotipo ---- */
+  .rotulo-bloco{
+    display:inline-block; background-color:var(--color-cinza-950); color:#FFF;
+    font-family:var(--font-titulo); font-weight:600; font-size:.75rem; line-height:1.25;
+    text-transform:uppercase; letter-spacing:.08em; padding:3px .5rem;
+  }
+  .rotulo-bloco.is-marca{ background-color:var(--color-bordo-700); }
+  .rotulo-bloco.is-verde{ background-color:var(--color-verde-700); }
+  .rotulo-bloco.is-alerta{ background-color:var(--color-laranja-400); color:var(--color-cinza-950); }
+
+  /* ---- linha de degradê de fogo sob os títulos de seção ---- */
+  .linha-fogo{
+    height:5px; border:0; margin:0 0 1.5rem;
+    background:linear-gradient(90deg,
+      var(--color-queimada-1),var(--color-queimada-2),var(--color-queimada-3),
+      var(--color-queimada-4),var(--color-queimada-5),var(--color-queimada-6),var(--color-queimada-7));
+  }
+
+  /* ---- cabeçalho de seção com bloco numerado ---- */
+  .secao-cab{ display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
+  .secao-num{
+    background-color:var(--color-bordo-700); color:#FFF; font-family:var(--font-titulo);
+    font-weight:700; font-size:1.5rem; min-width:40px; height:40px; display:grid; place-items:center;
+  }
+  .secao-cab h2{ color:var(--color-bordo-700); margin:0; }
+
+  /* ---- cartão de eixo: numeral grande sobre bloco de cor ---- */
+  .cartao-eixo{
+    display:grid; grid-template-columns:76px 1fr; align-items:stretch; overflow:hidden;
+    border-radius:var(--radius-box); background-color:var(--color-oliva-400); color:var(--color-cinza-950);
+  }
+  .cartao-eixo.is-verde{ background-color:var(--color-verde-700); color:#FFF; }
+  .cartao-eixo__num{
+    font-family:var(--font-titulo); font-weight:700; font-size:3.25rem; line-height:1;
+    display:grid; place-items:center; color:#FFF; background-color:rgb(35 31 32 / .10);
+  }
+  .cartao-eixo__corpo{ padding:1rem 1.25rem; }
+
+  /* ---- faixas empilhadas em degradê, da página de metodologia ---- */
+  .faixas{ display:flex; flex-direction:column; gap:2px; list-style:none; margin:0; padding:0; }
+  .faixas>li{
+    color:#FFF; font-family:var(--font-titulo); font-weight:600; font-size:1.25rem;
+    text-transform:uppercase; padding:.5rem 1rem; transition:transform 140ms ease;
+  }
+  .faixas>li:hover{ transform:translateX(6px); }
+  .faixas>li:nth-child(1){background-color:var(--color-faixa-1)}
+  .faixas>li:nth-child(2){background-color:var(--color-faixa-2)}
+  .faixas>li:nth-child(3){background-color:var(--color-faixa-3)}
+  .faixas>li:nth-child(4){background-color:var(--color-faixa-4)}
+  .faixas>li:nth-child(5){background-color:var(--color-faixa-5)}
+  .faixas>li:nth-child(6){background-color:var(--color-faixa-6)}
+  .faixas>li:nth-child(7){background-color:var(--color-faixa-7)}
+
+  /* ---- legenda de mapa ---- */
+  .legenda-mapa{
+    background-color:var(--color-base-100); border:1px solid var(--color-base-300);
+    padding:.75rem 1rem; max-width:280px;
+  }
+  .legenda-rampa{ display:flex; height:14px; border:1px solid var(--color-base-300); }
+  .legenda-rampa>span{ flex:1; }
+  .legenda-rotulos{ display:flex; justify-content:space-between; font-size:.6875rem; opacity:.75; margin-top:4px; }
+  .legenda-item{ display:flex; align-items:center; gap:.5rem; font-size:.75rem; margin-top:4px; }
+  .legenda-cor{ width:14px; height:14px; flex:none; border:1px solid rgb(35 31 32 / .2); }
+
+  /* ---- marca no topo, com a Downcome ---- */
+  .marca-topo{ font-family:var(--font-marca); font-size:1.5rem; line-height:1; text-transform:uppercase; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .faixas>li{ transition:none; }
+}

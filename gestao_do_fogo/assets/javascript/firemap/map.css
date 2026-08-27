@@ -19,16 +19,17 @@
   --rail-w: 64px;
   --recolher-w: 24px;
   --recolher-h: 48px;
-  --mapa-chrome: var(--verde-900);
-  --mapa-chrome-tinta: var(--verde-100);
-  --mapa-realce: var(--laranja-500);
-  --mapa-sombra: 0 2px 16px rgb(28 27 26 / 0.18);
+  --mapa-chrome: var(--color-verde-900);
+  --mapa-chrome-tinta: var(--color-verde-100);
+  --mapa-realce: var(--color-laranja-400);
+  --mapa-sombra: 0 2px 16px rgb(35 31 32 / 0.18);
 }
 
-/* No escuro o chrome precisa ficar ABAIXO do base-100 (#143723), senão o rail
-   se confunde com o painel. */
+/* No escuro o chrome precisa ficar ABAIXO do base-100 (#231f20), senão o rail
+   se confunde com o painel. O manual reserva o preto justamente para cabeçalho,
+   rodapé e painel sobre mapa, então aqui ele escurece em vez de puxar o verde. */
 [data-theme='gestao-do-fogo-dark'] #firemap {
-  --mapa-chrome: #0b2417;
+  --mapa-chrome: #141112;
 }
 
 /* Trava o scroll da página só nesta rota, sem precisar de bloco novo no base.html. */
@@ -112,7 +113,7 @@ body:has(#firemap) {
   bottom: 0;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, var(--fogo-2), var(--fogo-5), var(--fogo-2));
+  background: linear-gradient(90deg, var(--color-queimada-2), var(--color-queimada-5), var(--color-queimada-2));
   background-size: 200% 100%;
   animation: mapa-progresso 1.1s linear infinite;
 }
@@ -214,7 +215,7 @@ body:has(#firemap) {
   right: calc(var(--sb-dir) + var(--sb-gap));
 }
 .mapa-recolher:hover {
-  background: var(--verde-700);
+  background: var(--color-verde-700);
 }
 
 /* --- abas horizontais (painel esquerdo) ----------------------------------- */

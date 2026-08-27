@@ -1,0 +1,199 @@
+/* ==========================================================================
+   IDENTIDADE "GESTÃO DO FOGO NA AMAZÔNIA" · tokens de interface
+   Fonte: manual de identidade visual Agência W5 / IPAM (InDesign, mar/2025).
+   Cores oficiais lidas diretamente dos objetos vetoriais do PDF (valores exatos).
+   Escalas tonais geradas em OKLab a partir das 7 cores oficiais.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fontes (arquivos woff2 subsetados para latim + acentuação PT-BR)
+   -------------------------------------------------------------------------- */
+@font-face{
+  font-family:"Built Titling"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("fonts/BuiltTitling-Regular.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Built Titling"; font-style:normal; font-weight:600; font-display:swap;
+  src:url("fonts/BuiltTitling-SemiBold.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Built Titling"; font-style:normal; font-weight:700; font-display:swap;
+  src:url("fonts/BuiltTitling-Bold.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Downcome"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("fonts/Downcome.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("fonts/ZillaSlab-Regular.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:italic; font-weight:400; font-display:swap;
+  src:url("fonts/ZillaSlab-Italic.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:normal; font-weight:500; font-display:swap;
+  src:url("fonts/ZillaSlab-Medium.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:normal; font-weight:600; font-display:swap;
+  src:url("fonts/ZillaSlab-SemiBold.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:normal; font-weight:700; font-display:swap;
+  src:url("fonts/ZillaSlab-Bold.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Zilla Slab"; font-style:italic; font-weight:700; font-display:swap;
+  src:url("fonts/ZillaSlab-BoldItalic.woff2") format("woff2");
+}
+
+:root{
+/* --------------------------------------------------------------------------
+   2. Paleta oficial (valores exatos do manual)
+   -------------------------------------------------------------------------- */
+  --of-laranja:#F5821F;   /* fogo ativo, primeiros focos */
+  --of-vermelho:#ED1C24;  /* urgência, alerta */
+  --of-bordo:#9E0A0E;     /* queimada severa, marca das seções */
+  --of-preto:#231F20;     /* área devastada, tinta */
+  --of-cinza:#777770;     /* cinzas, transição */
+  --of-verde:#0D6C3E;     /* floresta preservada, IPAM */
+  --of-oliva:#9FAD63;     /* área em recuperação */
+  --of-rosa-tabela:#E9C4B4;  /* fundo de linha de tabela no impresso */
+  --of-cinza-claro:#C5C6C1;  /* "sem informação" nos gráficos */
+
+/* --------------------------------------------------------------------------
+   3. Escalas tonais (a cor oficial está marcada em cada rampa)
+   -------------------------------------------------------------------------- */
+  --laranja-50:#FFF1E5;  --laranja-100:#FFDFC8; --laranja-200:#FFC29A; --laranja-300:#F39F66;
+  --laranja-400:#F5821F; /* oficial */ --laranja-500:#CE5E00; --laranja-600:#B44700;
+  --laranja-700:#973000; --laranja-800:#751C00; --laranja-900:#540A00;
+
+  --vermelho-50:#FFEDE8; --vermelho-100:#FFD7CF; --vermelho-200:#FFB2A6; --vermelho-300:#FF8679;
+  --vermelho-400:#FF564D; --vermelho-500:#ED1C24; /* oficial */ --vermelho-600:#D40002;
+  --vermelho-700:#B20000; --vermelho-800:#8C0000; --vermelho-900:#660000;
+
+  --bordo-50:#FFEFEB; --bordo-100:#FFDBD5; --bordo-200:#FFBBB0; --bordo-300:#FC9588;
+  --bordo-400:#ED6F62; --bordo-500:#D84E43; --bordo-600:#BE342D;
+  --bordo-700:#9E0A0E; /* oficial */ --bordo-800:#7C0206; --bordo-900:#590000;
+
+  --verde-50:#EDFAF1; --verde-100:#D7EFDE; --verde-200:#B5DDC2; --verde-300:#8DC5A0;
+  --verde-400:#65AE80; --verde-500:#449766; --verde-600:#2A8050;
+  --verde-700:#0D6C3E; /* oficial */ --verde-800:#004E29; --verde-900:#003517;
+
+  --oliva-50:#F5F7EC; --oliva-100:#E6EBD5; --oliva-200:#CED7B1; --oliva-300:#B2BC88;
+  --oliva-400:#9FAD63; /* oficial */ --oliva-500:#7E8B42; --oliva-600:#69752A;
+  --oliva-700:#525D15; --oliva-800:#3C4502; --oliva-900:#272E00;
+
+  --cinza-50:#F6F6F4; --cinza-100:#E8E8E6; --cinza-200:#D2D2CE; --cinza-300:#B6B6B1;
+  --cinza-400:#9C9C95; --cinza-500:#84847D; --cinza-600:#777770; /* oficial */
+  --cinza-700:#575751; --cinza-800:#40403B; --cinza-900:#2A2A26; --cinza-950:#231F20;
+
+/* --------------------------------------------------------------------------
+   4. Tokens semânticos de interface
+   -------------------------------------------------------------------------- */
+  --fundo:var(--cinza-50);
+  --fundo-alt:var(--cinza-100);
+  --superficie:#FFFFFF;
+  --superficie-escura:var(--of-preto);
+  --borda:var(--cinza-200);
+  --borda-forte:var(--cinza-300);
+
+  --texto:var(--of-preto);
+  --texto-suave:var(--cinza-700);      /* 7,3:1 no branco */
+  --texto-fraco:var(--cinza-600);      /* 4,5:1 no branco, só para apoio */
+  --texto-invertido:#FFFFFF;
+
+  --acao:var(--verde-700);             /* 6,5:1 no branco */
+  --acao-hover:var(--verde-800);
+  --acao-suave:var(--verde-50);
+  --marca:var(--bordo-700);            /* cabeçalhos de seção e tabela */
+
+  --perigo:var(--bordo-700);           /* preenchimento com texto branco */
+  --perigo-texto:var(--vermelho-700);  /* 7,3:1 no branco */
+  --perigo-suave:var(--vermelho-50);
+  --alerta:var(--of-laranja);          /* preenchimento com texto preto */
+  --alerta-texto:var(--laranja-700);
+  --alerta-suave:var(--laranja-50);
+  --sucesso:var(--verde-700);
+  --sucesso-suave:var(--verde-50);
+  --info:var(--cinza-700);
+  --foco:var(--of-laranja);
+
+/* --------------------------------------------------------------------------
+   5. Dataviz
+   -------------------------------------------------------------------------- */
+  /* categórica institucional (mesma lógica do gráfico de entrevistas) */
+  --dv-1:#ED1C24; --dv-2:#9E0A0E; --dv-3:#231F20; --dv-4:#F5821F;
+  --dv-5:#0D6C3E; --dv-6:#9FAD63; --dv-7:#777770; --dv-sem-info:#C5C6C1;
+
+  /* sequencial de fogo: sem queima -> cicatriz recente -> área devastada */
+  --fogo-1:#FFF1E5; --fogo-2:#FBA970; --fogo-3:#F36822; --fogo-4:#ED1C24;
+  --fogo-5:#B81015; --fogo-6:#741F1B; --fogo-7:#231F20;
+
+  /* sequencial de vegetação: regeneração -> floresta preservada */
+  --veg-1:#F5F7EC; --veg-2:#B4BF86; --veg-3:#618C50; --veg-4:#085E34; --veg-5:#003517;
+
+  /* faixas do impresso (metodologia): degradê bordô -> terracota */
+  --faixa-1:#B8553E; --faixa-2:#B44B34; --faixa-3:#AF412C; --faixa-4:#AB3523;
+  --faixa-5:#A6291B; --faixa-6:#A21C15; --faixa-7:#9E0A0E;
+
+/* --------------------------------------------------------------------------
+   6. Tipografia
+   -------------------------------------------------------------------------- */
+  --fonte-titulo:"Built Titling","Oswald","Archivo Narrow",system-ui,sans-serif;
+  --fonte-texto:"Zilla Slab",Georgia,"Times New Roman",serif;
+  --fonte-marca:"Downcome","Built Titling",system-ui,sans-serif; /* só logo e hero */
+  --fonte-mono:ui-monospace,"Cascadia Code","JetBrains Mono",Menlo,monospace;
+
+  --t-11:0.6875rem; --t-12:0.75rem;  --t-14:0.875rem; --t-16:1rem;
+  --t-18:1.125rem; --t-20:1.25rem;   --t-24:1.5rem;   --t-30:1.875rem;
+  --t-38:2.375rem; --t-48:3rem;      --t-60:3.75rem;
+
+  --altura-apertada:1.05;  /* títulos em Built Titling */
+  --altura-normal:1.6;     /* corpo em Zilla Slab */
+  --tracking-rotulo:0.08em;
+  --tracking-titulo:0.01em;
+
+/* --------------------------------------------------------------------------
+   7. Espaçamento, raio, sombra, movimento
+   -------------------------------------------------------------------------- */
+  --e-1:4px; --e-2:8px; --e-3:12px; --e-4:16px; --e-5:20px; --e-6:24px;
+  --e-8:32px; --e-10:40px; --e-12:48px; --e-16:64px; --e-20:80px;
+
+  --raio-0:0px;    /* padrão da identidade: blocos retos */
+  --raio-1:2px;    /* campos e botões */
+  --raio-2:4px;    /* cartões */
+  --raio-cheio:999px;
+
+  --sombra-1:0 1px 2px rgba(35,31,32,.08);
+  --sombra-2:0 4px 16px rgba(35,31,32,.12);
+  --sombra-3:0 12px 32px rgba(35,31,32,.18);
+
+  --transicao:140ms cubic-bezier(.2,.6,.3,1);
+
+  --largura-conteudo:1180px;
+  --largura-leitura:68ch;
+}
+
+/* Superfícies escuras (cabeçalho, rodapé, painel de mapa) */
+[data-tema="escuro"]{
+  --fundo:var(--of-preto);
+  --fundo-alt:#171415;
+  --superficie:#2E2A2B;
+  --borda:#453F40;
+  --borda-forte:#5A5556;
+  --texto:#F6F5F6;
+  --texto-suave:#C9C5C6;
+  --texto-fraco:#9F9A9B;
+  --acao:#65AE80;
+  --acao-hover:#8DC5A0;
+  --marca:#FF8679;
+  --perigo-texto:#FF8679;
+  --alerta-texto:#F39F66;
+}
+
+@media (prefers-reduced-motion:reduce){
+  :root{ --transicao:0ms; }
+}

@@ -25,7 +25,7 @@
       {% if not layer.available %}
         <div class="flex gap-2">
           <dt class="rotulo text-base-content/50 w-20 flex-none">{% translate "Situação" %}</dt>
-          <dd class="text-[var(--vermelho-700)]">{{ layer.pending_reason }}</dd>
+          <dd class="text-marca">{{ layer.pending_reason }}</dd>
         </div>
       {% endif %}
     </dl>

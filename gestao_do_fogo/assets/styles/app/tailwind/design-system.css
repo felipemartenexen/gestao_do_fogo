@@ -1,83 +1,189 @@
 /* ==========================================================================
-   Design System - Gestão do Fogo (v0.1)
+   Design System - Gestão do Fogo (v1.0)
 
-   Derivado da identidade do Resumo Executivo "Gestão do Fogo na Amazônia"
-   (IPAM, 2025 - diagramação Agência W5).
+   Identidade oficial "Gestão do Fogo na Amazônia" (IPAM, 2025 - Agência W5).
+   As sete cores foram lidas dos objetos vetoriais do manual, não amostradas de
+   pixel; as escalas 50-900 foram geradas em OKLab preservando matiz e croma,
+   então a cor oficial continua presente em cada rampa sem deslocamento.
+   Pacote de origem: indentidade_visual/identidade-pegasus/.
 
    Princípios que guiam as escolhas abaixo:
-   - Verde é estrutura, fogo é dado. Verde/oliva para navegação, marca e ações;
-     vermelhos e laranjas ficam reservados para severidade e alerta.
-   - Papel como base: fundo creme (base-200) com superfícies brancas (base-100).
-   - Textura só em display: Rubik Dirt apenas em títulos grandes de marca.
+   - Verde é ação, fogo é dado. Numa plataforma de fogo, vermelho e laranja
+     precisam significar risco, não "clique aqui".
+   - Bordô é a cor de marca das seções e dos cabeçalhos de tabela, exatamente o
+     papel que ele tem no impresso.
+   - Papel claro e neutro como base; o preto fica para cabeçalho, rodapé e
+     painel sobre mapa.
+   - Cantos retos, ecoando os blocos do logotipo (raio máximo de 4px).
+
+   Tipografia: só famílias de licença aberta. Built Titling (Typodermic) tem
+   licença de desktop e Downcome (Misprinted Type) proíbe redistribuição, então
+   nenhuma das duas pode ser servida por @font-face. Oswald é a substituta que
+   o próprio manual indica para a Built Titling, e Zilla Slab é OFL.
+   Downcome deve entrar só como SVG de logotipo, com os contornos convertidos.
    ========================================================================== */
 
-/* --- fontes auto-hospedadas (sem requisição a servidor externo) ----------- */
-@import '@fontsource/archivo/400.css';
-@import '@fontsource/archivo/500.css';
-@import '@fontsource/archivo/600.css';
-@import '@fontsource/archivo/700.css';
-@import '@fontsource/oswald/500.css';
-@import '@fontsource/oswald/600.css';
-@import '@fontsource/oswald/700.css';
-@import '@fontsource/rubik-dirt/400.css';
-@import '@fontsource-variable/source-serif-4';
+/*
+   Fontes auto-hospedadas (sem requisição a servidor externo). Só o subconjunto
+   latino: ele já cobre toda a acentuação do português, e importar o pacote
+   completo arrastaria cirílico, grego e hebraico junto - no Rubik Dirt isso
+   sozinho passava de 1,8 MB.
+*/
+@import '@fontsource/zilla-slab/latin-400.css';
+@import '@fontsource/zilla-slab/latin-400-italic.css';
+@import '@fontsource/zilla-slab/latin-500.css';
+@import '@fontsource/zilla-slab/latin-600.css';
+@import '@fontsource/zilla-slab/latin-700.css';
+@import '@fontsource/zilla-slab/latin-700-italic.css';
+@import '@fontsource/oswald/latin-500.css';
+@import '@fontsource/oswald/latin-600.css';
+@import '@fontsource/oswald/latin-700.css';
+@import '@fontsource/rubik-dirt/latin-400.css';
 
-/* --- tokens crus do design system ---------------------------------------- */
-:root {
-  /* Marca - verde institucional IPAM + oliva (bioma Amazônia) */
-  --verde-900: #0f3b26;
-  --verde-700: #1b5e3c;
-  --verde-500: #2e7d4f;
-  --verde-300: #8fbfa0;
-  --verde-100: #e4efe8;
-  --oliva-700: #7e8a3f;
-  --oliva-500: #a6b15e;
-  --oliva-300: #cbd49c;
-  --oliva-100: #edf0dc;
+/* ==========================================================================
+   Tokens
 
-  /* Fogo - vinho > vermelho > laranja > salmão */
-  --vinho-900: #5e1013;
-  --vermelho-700: #a31d22;
-  --vermelho-500: #d7302f;
-  --salmao-300: #efa083;
-  --salmao-100: #f9e2d6;
-  --laranja-700: #b85b10;
-  --laranja-500: #e87722;
-  --laranja-300: #f3b36f;
-  --laranja-100: #fcebd8;
+   Tudo vive no @theme para que exista utilitária correspondente
+   (bg-bordo-700, text-verde-700, border-laranja-400, bg-queimada-5) e ao mesmo
+   tempo variável CSS em :root.
 
-  /* Neutros - papel do impresso + tinta */
-  --ink: #1c1b1a;
-  --cinza-700: #4a4a48;
-  --cinza-500: #7c7c79;
-  --cinza-300: #c9c7c2;
-  --cinza-100: #eae7e1;
-  --papel: #f6f2ea;
+   `static` porque o CSS do mapa e o dos pesquisadores são bundles separados,
+   que o Tailwind não processa: eles leem `var(--color-queimada-4)` e afins de
+   um :root que este bundle precisa ter escrito. Sem `static` o Tailwind poda
+   o que não viu em uso e esses tokens chegam indefinidos no outro bundle.
+   ========================================================================== */
+@theme static {
+  /* --- famílias tipográficas --- */
+  --font-sans: 'Zilla Slab', Georgia, 'Times New Roman', serif;
+  --font-display: 'Oswald', 'Archivo Narrow', ui-sans-serif, system-ui, sans-serif;
+  --font-texture: 'Rubik Dirt', 'Oswald', ui-sans-serif, sans-serif;
 
-  /* Rampa sequencial de fogo (coropléticos de área queimada / severidade) */
-  --fogo-1: #fdebd7;
-  --fogo-2: #f6c288;
-  --fogo-3: #ee8f3b;
-  --fogo-4: #d95b1e;
-  --fogo-5: #a32b1b;
-  --fogo-6: #6e1212;
+  /* --- laranja · fogo ativo, primeiros focos (oficial: 400) --- */
+  --color-laranja-50: #fff1e5;
+  --color-laranja-100: #ffdfc8;
+  --color-laranja-200: #ffc29a;
+  --color-laranja-300: #f39f66;
+  --color-laranja-400: #f5821f;
+  --color-laranja-500: #ce5e00;
+  --color-laranja-600: #b44700;
+  --color-laranja-700: #973000;
+  --color-laranja-800: #751c00;
+  --color-laranja-900: #540a00;
 
-  /* Dataviz - categóricas dos biomas (Figura 1 do documento) */
-  --dv-bioma-amazonia: #a6b15e;
-  --dv-bioma-caatinga: #7e1416;
-  --dv-bioma-cerrado: #e87722;
-  --dv-bioma-pantanal: #1b5e3c;
-  --dv-bioma-mata-atlantica: #2e7d4f;
-  --dv-bioma-pampa: #cbd49c;
+  /* --- vermelho · urgência e alerta (oficial: 500) --- */
+  --color-vermelho-50: #ffede8;
+  --color-vermelho-100: #ffd7cf;
+  --color-vermelho-200: #ffb2a6;
+  --color-vermelho-300: #ff8679;
+  --color-vermelho-400: #ff564d;
+  --color-vermelho-500: #ed1c24;
+  --color-vermelho-600: #d40002;
+  --color-vermelho-700: #b20000;
+  --color-vermelho-800: #8c0000;
+  --color-vermelho-900: #660000;
+
+  /* --- bordô · queimada severa, marca das seções (oficial: 700) --- */
+  --color-bordo-50: #ffefeb;
+  --color-bordo-100: #ffdbd5;
+  --color-bordo-200: #ffbbb0;
+  --color-bordo-300: #fc9588;
+  --color-bordo-400: #ed6f62;
+  --color-bordo-500: #d84e43;
+  --color-bordo-600: #be342d;
+  --color-bordo-700: #9e0a0e;
+  --color-bordo-800: #7c0206;
+  --color-bordo-900: #590000;
+
+  /* --- verde · floresta preservada, IPAM (oficial: 700) --- */
+  --color-verde-50: #edfaf1;
+  --color-verde-100: #d7efde;
+  --color-verde-200: #b5ddc2;
+  --color-verde-300: #8dc5a0;
+  --color-verde-400: #65ae80;
+  --color-verde-500: #449766;
+  --color-verde-600: #2a8050;
+  --color-verde-700: #0d6c3e;
+  --color-verde-800: #004e29;
+  --color-verde-900: #003517;
+
+  /* --- oliva · área em recuperação (oficial: 400) --- */
+  --color-oliva-50: #f5f7ec;
+  --color-oliva-100: #e6ebd5;
+  --color-oliva-200: #ced7b1;
+  --color-oliva-300: #b2bc88;
+  --color-oliva-400: #9fad63;
+  --color-oliva-500: #7e8b42;
+  --color-oliva-600: #69752a;
+  --color-oliva-700: #525d15;
+  --color-oliva-800: #3c4502;
+  --color-oliva-900: #272e00;
+
+  /* --- cinza · cinzas e transição (oficial: 600; 950 é o preto da tinta) --- */
+  --color-cinza-50: #f6f6f4;
+  --color-cinza-100: #e8e8e6;
+  --color-cinza-200: #d2d2ce;
+  --color-cinza-300: #b6b6b1;
+  --color-cinza-400: #9c9c95;
+  --color-cinza-500: #84847d;
+  --color-cinza-600: #777770;
+  --color-cinza-700: #575751;
+  --color-cinza-800: #40403b;
+  --color-cinza-900: #2a2a26;
+  --color-cinza-950: #231f20;
+
+  /*
+    Cor de marca das seções: eyebrow, numeral de KPI, bloco numerado.
+    É o único token de cor que vira no modo escuro (ver o bloco no fim do
+    arquivo), porque o bordô cheio não tem contraste sobre o preto.
+  */
+  --color-marca: #9e0a0e;
+
+  /* --- rampa sequencial de queimada: sem queima > cicatriz > devastado --- */
+  --color-queimada-1: #fff1e5;
+  --color-queimada-2: #fba970;
+  --color-queimada-3: #f36822;
+  --color-queimada-4: #ed1c24;
+  --color-queimada-5: #b81015;
+  --color-queimada-6: #741f1b;
+  --color-queimada-7: #231f20;
+
+  /* --- rampa sequencial de vegetação: regeneração > floresta preservada --- */
+  --color-veg-1: #f5f7ec;
+  --color-veg-2: #b4bf86;
+  --color-veg-3: #618c50;
+  --color-veg-4: #085e34;
+  --color-veg-5: #003517;
+
+  /* --- faixas do impresso (página de metodologia): terracota > bordô --- */
+  --color-faixa-1: #b8553e;
+  --color-faixa-2: #b44b34;
+  --color-faixa-3: #af412c;
+  --color-faixa-4: #ab3523;
+  --color-faixa-5: #a6291b;
+  --color-faixa-6: #a21c15;
+  --color-faixa-7: #9e0a0e;
+
+  /* --- ausência de dado, em mapa e gráfico --- */
+  --color-sem-info: #c5c6c1;
+
+  /*
+    Categórica dos biomas (Figura 1 do documento). A atribuição de cor por
+    bioma é a do documento; aqui cada uma foi apenas encostada na cor oficial
+    mais próxima.
+  */
+  --color-bioma-amazonia: #9fad63;
+  --color-bioma-caatinga: #9e0a0e;
+  --color-bioma-cerrado: #f5821f;
+  --color-bioma-pantanal: #0d6c3e;
+  --color-bioma-mata-atlantica: #449766;
+  --color-bioma-pampa: #b2bc88;
 }
 
-/* --- famílias tipográficas ------------------------------------------------ */
-@theme {
-  --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Oswald', 'Archivo', sans-serif;
-  --font-texture: 'Rubik Dirt', 'Oswald', sans-serif;
-  --font-editorial: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
-}
+/* ==========================================================================
+   Temas daisyUI
+   Os nomes seguem os do projeto (settings.LIGHT_THEME / DARK_THEME e o
+   darkMode do tailwind.config.js dependem deles); os valores são os oficiais.
+   ========================================================================== */
 
 /* --- tema claro (padrão) -------------------------------------------------- */
 @plugin "daisyui/theme" {
@@ -88,33 +194,37 @@
 
   /* base-100 são as superfícies (cards); base-200 é o papel da página */
   --color-base-100: #ffffff;
-  --color-base-200: #f6f2ea;
-  --color-base-300: #eae7e1;
-  --color-base-content: #1c1b1a;
+  --color-base-200: #f6f6f4;
+  --color-base-300: #e8e8e6;
+  --color-base-content: #231f20;
 
-  --color-primary: #1b5e3c;
+  /* verde é a cor de ação: 6,5:1 no branco e deixa o vermelho livre p/ risco */
+  --color-primary: #0d6c3e;
   --color-primary-content: #ffffff;
-  --color-secondary: #7e8a3f;
+  /* bordô é a marca das seções e dos cabeçalhos, como no impresso */
+  --color-secondary: #9e0a0e;
   --color-secondary-content: #ffffff;
   /* laranja é acento de dado, não de ação: texto sobre ele precisa ser tinta */
-  --color-accent: #e87722;
-  --color-accent-content: #1c1b1a;
-  --color-neutral: #1c1b1a;
-  --color-neutral-content: #f6f2ea;
+  --color-accent: #f5821f;
+  --color-accent-content: #231f20;
+  --color-neutral: #231f20;
+  --color-neutral-content: #f6f6f4;
 
-  --color-info: #3c5ba6;
+  /* o manual não tem azul; o informativo é o cinza das cinzas */
+  --color-info: #575751;
   --color-info-content: #ffffff;
-  --color-success: #1e7a45;
+  --color-success: #0d6c3e;
   --color-success-content: #ffffff;
-  --color-warning: #e87722;
-  --color-warning-content: #1c1b1a;
-  --color-error: #d7302f;
+  --color-warning: #f5821f;
+  --color-warning-content: #231f20;
+  /* erro em bordô (8,4:1) e não no vermelho oficial (4,4:1, reprova em texto) */
+  --color-error: #9e0a0e;
   --color-error-content: #ffffff;
 
-  /* raio contido, ecoando os blocos retos do impresso */
-  --radius-selector: 0.375rem;
+  /* raio contido, ecoando os blocos retos do logotipo */
+  --radius-selector: 0.125rem;
   --radius-field: 0.125rem;
-  --radius-box: 0.375rem;
+  --radius-box: 0.25rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -129,34 +239,34 @@
   prefersdark: true;
   color-scheme: dark;
 
-  /* o verde-900 da capa do relatório vira a base do modo escuro */
-  --color-base-100: #143723;
-  --color-base-200: #0f2a1d;
-  --color-base-300: #24503a;
-  --color-base-content: #e4efe8;
+  /* o preto da "área devastada" do manual é a base do modo escuro */
+  --color-base-100: #231f20;
+  --color-base-200: #1a1718;
+  --color-base-300: #2e2a2b;
+  --color-base-content: #f6f5f6;
 
-  /* no escuro o verde precisa clarear para manter contraste de texto/ícone */
-  --color-primary: #8fbfa0;
-  --color-primary-content: #0f3b26;
-  --color-secondary: #cbd49c;
-  --color-secondary-content: #1c1b1a;
-  --color-accent: #f3b36f;
-  --color-accent-content: #1c1b1a;
-  --color-neutral: #e4efe8;
-  --color-neutral-content: #0f2a1d;
+  /* no escuro, verde e bordô precisam clarear para manter contraste */
+  --color-primary: #65ae80;
+  --color-primary-content: #00210f;
+  --color-secondary: #ff8679;
+  --color-secondary-content: #3a0000;
+  --color-accent: #f5821f;
+  --color-accent-content: #231f20;
+  --color-neutral: #40403b;
+  --color-neutral-content: #f6f5f6;
 
-  --color-info: #9db2e0;
-  --color-info-content: #10203f;
-  --color-success: #7fc79a;
-  --color-success-content: #08301b;
-  --color-warning: #f3b36f;
-  --color-warning-content: #3d2007;
-  --color-error: #ef8a86;
-  --color-error-content: #40090a;
+  --color-info: #b6b6b1;
+  --color-info-content: #231f20;
+  --color-success: #65ae80;
+  --color-success-content: #00210f;
+  --color-warning: #f39f66;
+  --color-warning-content: #231f20;
+  --color-error: #ff8679;
+  --color-error-content: #3a0000;
 
-  --radius-selector: 0.375rem;
+  --radius-selector: 0.125rem;
   --radius-field: 0.125rem;
-  --radius-box: 0.375rem;
+  --radius-box: 0.25rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -170,31 +280,50 @@
 @layer base {
   body {
     font-family: var(--font-sans);
+    /* entrelinha de leitura longa, como o corpo do impresso */
+    line-height: 1.6;
   }
 
-  /* Títulos em condensada caixa-alta, como os rótulos do infográfico. */
+  /*
+    Títulos em condensada, como os rótulos do infográfico. O impresso usa caixa
+    alta em todos eles; aqui a caixa alta fica nos rótulos e etiquetas
+    (.rotulo, .tag-ds, .kpi-rot, cabeçalho de tabela), porque título longo de
+    interface em caixa alta perde legibilidade. Para seguir o impresso à risca,
+    acrescente `text-transform: uppercase` neste bloco.
+  */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: 0.02em;
+    line-height: 1.1;
   }
 
   h1 {
     letter-spacing: 0.01em;
+    line-height: 1.05;
   }
 
   /* Números tabulares em dados: colunas alinham e não "dançam" ao atualizar. */
   table td,
   table th,
+  .stat-value,
   .tabular {
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: tabular-nums lining-nums;
   }
 
-  /* Foco visível padrão do design system. */
+  /*
+    Foco visível em laranja: a única função de interface que o laranja tem.
+    Usa o passo 500 e não o 400 oficial porque o #F5821F rende 2,6:1 no branco
+    e 2,4:1 no papel, abaixo do mínimo de 3:1 que a WCAG 2.2 (1.4.11) exige de
+    indicador de foco. O 500 sai do mesmo eixo OKLab da rampa - continua sendo
+    o laranja da marca - e passa nas quatro superfícies dos dois temas
+    (4,0:1 e 3,7:1 no claro; 4,1:1 e 4,4:1 no escuro), então dispensa variante
+    por tema.
+  */
   :focus-visible {
-    outline: 3px solid var(--laranja-500);
+    outline: 3px solid var(--color-laranja-500);
     outline-offset: 2px;
   }
 }
@@ -220,9 +349,23 @@
     letter-spacing: 0.08em;
   }
 
-  /* Bloco numerado vinho + título, ecoando a abertura de seção do impresso. */
+  /*
+    Cabeçalho de tabela em bordô com texto branco: é o papel que o bordô tem no
+    impresso e o projeto ainda não tinha estilo próprio de tabela.
+  */
+  .table thead th,
+  .table tfoot td {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: var(--color-bordo-700);
+    color: #ffffff;
+  }
+
+  /* Bloco numerado bordô + título, ecoando a abertura de seção do impresso. */
   .sec-num {
-    background: var(--vermelho-700);
+    background: var(--color-bordo-700);
     color: #ffffff;
     font-family: var(--font-display);
     font-weight: 700;
@@ -232,9 +375,15 @@
     place-items: center;
   }
 
-  /* Número-destaque de infográfico. */
+  /*
+    Número-destaque de infográfico. A cor do cartão vem de --kpi-cor, para que
+    o template só escolha o papel (.kpi-verde, .kpi-oliva) e o tema decida o
+    tom. Cor fixa da paleta aqui não serve: verde-700 rende 2,5:1 e oliva-700
+    2,3:1 sobre o preto do modo escuro, abaixo do mínimo de 3:1 para número
+    grande.
+  */
   .kpi {
-    border-left: 6px solid var(--laranja-500);
+    border-left: 6px solid var(--kpi-cor, var(--color-laranja-400));
     padding: 0.75rem 1rem;
     background: var(--color-base-100);
   }
@@ -243,8 +392,14 @@
     font-weight: 700;
     font-size: 3.5rem;
     line-height: 1;
-    color: var(--vermelho-700);
-    font-variant-numeric: tabular-nums;
+    color: var(--kpi-cor, var(--color-marca));
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .kpi-verde {
+    --kpi-cor: var(--color-verde-700);
+  }
+  .kpi-oliva {
+    --kpi-cor: var(--color-oliva-700);
   }
   .kpi-rot {
     font-family: var(--font-display);
@@ -252,20 +407,21 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.875rem;
-    color: var(--cinza-700);
+    color: var(--color-cinza-700);
   }
 
-  /* Faixa da rampa de fogo - usada como régua de severidade no topo de blocos. */
+  /* Faixa da rampa de queimada - régua de severidade no topo de blocos. */
   .faixa-fogo {
     height: 6px;
     background: linear-gradient(
       90deg,
-      var(--fogo-1),
-      var(--fogo-2),
-      var(--fogo-3),
-      var(--fogo-4),
-      var(--fogo-5),
-      var(--fogo-6)
+      var(--color-queimada-1),
+      var(--color-queimada-2),
+      var(--color-queimada-3),
+      var(--color-queimada-4),
+      var(--color-queimada-5),
+      var(--color-queimada-6),
+      var(--color-queimada-7)
     );
   }
 
@@ -289,32 +445,32 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: var(--bioma, var(--cinza-500));
+    background: var(--bioma, var(--color-cinza-500));
     flex: none;
   }
   .bioma-amazonia {
-    --bioma: var(--dv-bioma-amazonia);
+    --bioma: var(--color-bioma-amazonia);
   }
   .bioma-cerrado {
-    --bioma: var(--dv-bioma-cerrado);
+    --bioma: var(--color-bioma-cerrado);
   }
   .bioma-caatinga {
-    --bioma: var(--dv-bioma-caatinga);
+    --bioma: var(--color-bioma-caatinga);
   }
   .bioma-pantanal {
-    --bioma: var(--dv-bioma-pantanal);
+    --bioma: var(--color-bioma-pantanal);
   }
   .bioma-mata-atlantica {
-    --bioma: var(--dv-bioma-mata-atlantica);
+    --bioma: var(--color-bioma-mata-atlantica);
   }
   .bioma-pampa {
-    --bioma: var(--dv-bioma-pampa);
+    --bioma: var(--color-bioma-pampa);
   }
 
   /* Tag sólida em caixa-alta, como as etiquetas do relatório. */
   .tag-ds {
     display: inline-block;
-    background: var(--verde-700);
+    background: var(--color-verde-700);
     color: #ffffff;
     font-family: var(--font-display);
     font-weight: 600;
@@ -324,19 +480,29 @@
     padding: 0.1875rem 0.625rem;
   }
   .tag-ds-laranja {
-    background: var(--laranja-500);
-    color: var(--ink);
+    background: var(--color-laranja-400);
+    color: var(--color-cinza-950);
   }
   .tag-ds-vinho {
-    background: var(--vermelho-700);
+    background: var(--color-bordo-700);
   }
   .tag-ds-oliva {
-    background: var(--oliva-700);
+    background: var(--color-oliva-700);
   }
 }
 
-/* No modo escuro os tokens crus precisam clarear para seguir legíveis. */
+/*
+  No escuro o bordô cheio some contra o preto: a cor de marca clareia para o
+  vermelho-300, o mesmo tom que o tema escuro usa em `secondary`.
+*/
 [data-theme='gestao-do-fogo-dark'] {
-  --cinza-700: #b8c4bb;
-  --vermelho-700: #ef8a86;
+  --color-marca: #ff8679;
+}
+
+/* Os destaques de KPI clareiam junto, pelo mesmo motivo do --color-marca. */
+[data-theme='gestao-do-fogo-dark'] .kpi-verde {
+  --kpi-cor: var(--color-verde-400);
+}
+[data-theme='gestao-do-fogo-dark'] .kpi-oliva {
+  --kpi-cor: var(--color-oliva-300);
 }

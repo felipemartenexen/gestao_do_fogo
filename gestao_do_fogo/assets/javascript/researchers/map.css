@@ -1,39 +1,39 @@
 /* Marcador próprio do mapa de pesquisadores (ver map.js). */
 .researcher-marker {
-  /* --fogo-4 do design system: laranja queimado, legível sobre as tiles do OSM */
-  color: var(--fogo-4, #d95b1e);
+  /* passo 4 da rampa de queimada: o vermelho oficial, legível sobre as tiles do OSM */
+  color: var(--color-queimada-4, #ed1c24);
   line-height: 0;
   filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
 }
 
 .researcher-marker:hover {
-  color: var(--fogo-5, #a32b1b);
+  color: var(--color-queimada-5, #b81015);
 }
 
 /* Clusters seguem a rampa de fogo: quanto mais gente, mais quente. */
 .marker-cluster-small {
-  background-color: color-mix(in srgb, var(--fogo-2, #f6c288) 60%, transparent);
+  background-color: color-mix(in srgb, var(--color-queimada-2, #fba970) 60%, transparent);
 }
 .marker-cluster-small div {
-  background-color: var(--fogo-2, #f6c288);
-  color: var(--ink, #1c1b1a);
+  background-color: var(--color-queimada-2, #fba970);
+  color: var(--color-cinza-950, #231f20);
 }
 .marker-cluster-medium {
-  background-color: color-mix(in srgb, var(--fogo-3, #ee8f3b) 60%, transparent);
+  background-color: color-mix(in srgb, var(--color-queimada-3, #f36822) 60%, transparent);
 }
 .marker-cluster-medium div {
-  background-color: var(--fogo-3, #ee8f3b);
-  color: var(--ink, #1c1b1a);
+  background-color: var(--color-queimada-3, #f36822);
+  color: var(--color-cinza-950, #231f20);
 }
 .marker-cluster-large {
-  background-color: color-mix(in srgb, var(--fogo-5, #a32b1b) 55%, transparent);
+  background-color: color-mix(in srgb, var(--color-queimada-5, #b81015) 55%, transparent);
 }
 .marker-cluster-large div {
-  background-color: var(--fogo-5, #a32b1b);
+  background-color: var(--color-queimada-5, #b81015);
   color: #ffffff;
 }
 .marker-cluster div {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-display, 'Oswald', sans-serif);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -42,7 +42,7 @@
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
   background: var(--color-base-100, #fff);
-  color: var(--color-base-content, #1f2937);
+  color: var(--color-base-content, #231f20);
 }
 
 .leaflet-popup-content {

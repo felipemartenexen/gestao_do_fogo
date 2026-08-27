@@ -1,0 +1,32 @@
+/* ==========================================================================
+   assets/styles/site-tailwind.css · exemplo com a identidade ligada
+   Compare com o seu arquivo e traga apenas as linhas marcadas com [+].
+   A ordem importa: tailwind, plugins, tema, componentes.
+   ========================================================================== */
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* [+] desliga os temas de fábrica do daisyUI para evitar conflito de
+   especificidade no build de produção. Só os temas "fogo" entram no CSS. */
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* [+] identidade: tokens, fontes e os dois temas daisyUI */
+@import "./identidade/fogo-theme.css";
+
+/* Aqui continuam os imports que o Pegasus já trouxe, por exemplo:
+@import "./app/tailwind/base.css";
+@import "./app/tailwind/components.css";
+*/
+
+/* [+] base e recursos gráficos do impresso. Depois dos estilos do Pegasus,
+   para vencer no cascade sem precisar de !important. */
+@import "./identidade/fogo-componentes.css";
+
+/* [+] onde o Tailwind 4 procura classes. Se o seu projeto veio da versão 3,
+   confira se estes @source cobrem os mesmos caminhos do antigo "content". */
+@source "../../templates";
+@source "../../apps";
+@source "../javascript";

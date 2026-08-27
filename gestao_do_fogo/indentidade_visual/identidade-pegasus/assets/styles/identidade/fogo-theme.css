@@ -1,0 +1,168 @@
+/* ==========================================================================
+   IDENTIDADE "GESTÃO DO FOGO NA AMAZÔNIA" · tema daisyUI + tokens Tailwind 4
+   Local: assets/styles/identidade/fogo-theme.css
+   Importar a partir de assets/styles/site-tailwind.css.
+   Cores exatas do manual Agência W5 / IPAM (2025).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fontes. Os arquivos ficam em static/fonts/identidade/ e são servidos pelo
+   Django, não pelo bundler, para que o {% static %} e o ManifestStaticFiles
+   consigam versionar tudo junto.
+   -------------------------------------------------------------------------- */
+@font-face{font-family:"Built Titling";font-style:normal;font-weight:400;font-display:swap;
+  src:url("/static/fonts/identidade/BuiltTitling-Regular.woff2") format("woff2")}
+@font-face{font-family:"Built Titling";font-style:normal;font-weight:600;font-display:swap;
+  src:url("/static/fonts/identidade/BuiltTitling-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"Built Titling";font-style:normal;font-weight:700;font-display:swap;
+  src:url("/static/fonts/identidade/BuiltTitling-Bold.woff2") format("woff2")}
+@font-face{font-family:"Downcome";font-style:normal;font-weight:400;font-display:swap;
+  src:url("/static/fonts/identidade/Downcome.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:normal;font-weight:400;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-Regular.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:italic;font-weight:400;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-Italic.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:normal;font-weight:500;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-Medium.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:normal;font-weight:600;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:normal;font-weight:700;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-Bold.woff2") format("woff2")}
+@font-face{font-family:"Zilla Slab";font-style:italic;font-weight:700;font-display:swap;
+  src:url("/static/fonts/identidade/ZillaSlab-BoldItalic.woff2") format("woff2")}
+
+/* --------------------------------------------------------------------------
+   Tokens Tailwind. Geram utilitárias: bg-bordo-700, text-verde-700,
+   border-laranja-400, font-titulo, bg-queimada-5, etc.
+   -------------------------------------------------------------------------- */
+@theme {
+  --font-sans:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --font-texto:"Zilla Slab", Georgia, serif;
+  --font-titulo:"Built Titling", "Oswald", "Archivo Narrow", ui-sans-serif, system-ui, sans-serif;
+  --font-marca:"Downcome", "Built Titling", ui-sans-serif, sans-serif;
+
+  /* laranja · fogo ativo */
+  --color-laranja-50:#FFF1E5;  --color-laranja-100:#FFDFC8; --color-laranja-200:#FFC29A;
+  --color-laranja-300:#F39F66; --color-laranja-400:#F5821F; --color-laranja-500:#CE5E00;
+  --color-laranja-600:#B44700; --color-laranja-700:#973000; --color-laranja-800:#751C00;
+  --color-laranja-900:#540A00;
+
+  /* vermelho · urgência */
+  --color-vermelho-50:#FFEDE8;  --color-vermelho-100:#FFD7CF; --color-vermelho-200:#FFB2A6;
+  --color-vermelho-300:#FF8679; --color-vermelho-400:#FF564D; --color-vermelho-500:#ED1C24;
+  --color-vermelho-600:#D40002; --color-vermelho-700:#B20000; --color-vermelho-800:#8C0000;
+  --color-vermelho-900:#660000;
+
+  /* bordô · queimada severa, marca das seções */
+  --color-bordo-50:#FFEFEB;  --color-bordo-100:#FFDBD5; --color-bordo-200:#FFBBB0;
+  --color-bordo-300:#FC9588; --color-bordo-400:#ED6F62; --color-bordo-500:#D84E43;
+  --color-bordo-600:#BE342D; --color-bordo-700:#9E0A0E; --color-bordo-800:#7C0206;
+  --color-bordo-900:#590000;
+
+  /* verde · floresta preservada, IPAM */
+  --color-verde-50:#EDFAF1;  --color-verde-100:#D7EFDE; --color-verde-200:#B5DDC2;
+  --color-verde-300:#8DC5A0; --color-verde-400:#65AE80; --color-verde-500:#449766;
+  --color-verde-600:#2A8050; --color-verde-700:#0D6C3E; --color-verde-800:#004E29;
+  --color-verde-900:#003517;
+
+  /* oliva · área em recuperação */
+  --color-oliva-50:#F5F7EC;  --color-oliva-100:#E6EBD5; --color-oliva-200:#CED7B1;
+  --color-oliva-300:#B2BC88; --color-oliva-400:#9FAD63; --color-oliva-500:#7E8B42;
+  --color-oliva-600:#69752A; --color-oliva-700:#525D15; --color-oliva-800:#3C4502;
+  --color-oliva-900:#272E00;
+
+  /* cinza · cinzas e transição */
+  --color-cinza-50:#F6F6F4;  --color-cinza-100:#E8E8E6; --color-cinza-200:#D2D2CE;
+  --color-cinza-300:#B6B6B1; --color-cinza-400:#9C9C95; --color-cinza-500:#84847D;
+  --color-cinza-600:#777770; --color-cinza-700:#575751; --color-cinza-800:#40403B;
+  --color-cinza-900:#2A2A26; --color-cinza-950:#231F20;
+
+  /* rampa sequencial de área queimada e severidade */
+  --color-queimada-1:#FFF1E5; --color-queimada-2:#FBA970; --color-queimada-3:#F36822;
+  --color-queimada-4:#ED1C24; --color-queimada-5:#B81015; --color-queimada-6:#741F1B;
+  --color-queimada-7:#231F20;
+
+  /* rampa sequencial de vegetação e regeneração */
+  --color-veg-1:#F5F7EC; --color-veg-2:#B4BF86; --color-veg-3:#618C50;
+  --color-veg-4:#085E34; --color-veg-5:#003517;
+
+  /* faixas do impresso (página de metodologia) */
+  --color-faixa-1:#B8553E; --color-faixa-2:#B44B34; --color-faixa-3:#AF412C;
+  --color-faixa-4:#AB3523; --color-faixa-5:#A6291B; --color-faixa-6:#A21C15;
+  --color-faixa-7:#9E0A0E;
+
+  /* sem informação, usado em mapa e gráfico */
+  --color-sem-info:#C5C6C1;
+}
+
+/* --------------------------------------------------------------------------
+   Tema claro. Verde é a cor de ação, porque numa plataforma de fogo o vermelho
+   e o laranja precisam significar risco, não "clique aqui". O erro usa bordô
+   (8,4:1 com branco) em vez do vermelho oficial (4,4:1, reprova em texto).
+   -------------------------------------------------------------------------- */
+@plugin "daisyui/theme" {
+  name:"fogo";
+  default:true;
+  prefersdark:false;
+  color-scheme:light;
+
+  --color-base-100:#FFFFFF;
+  --color-base-200:#F6F6F4;
+  --color-base-300:#E8E8E6;
+  --color-base-content:#231F20;
+
+  --color-primary:#0D6C3E;          --color-primary-content:#FFFFFF;
+  --color-secondary:#9E0A0E;        --color-secondary-content:#FFFFFF;
+  --color-accent:#F5821F;           --color-accent-content:#231F20;
+  --color-neutral:#231F20;          --color-neutral-content:#F6F6F4;
+
+  --color-info:#575751;             --color-info-content:#FFFFFF;
+  --color-success:#0D6C3E;          --color-success-content:#FFFFFF;
+  --color-warning:#F5821F;          --color-warning-content:#231F20;
+  --color-error:#9E0A0E;            --color-error-content:#FFFFFF;
+
+  /* cantos retos, como os blocos do logotipo */
+  --radius-selector:0.125rem;
+  --radius-field:0.125rem;
+  --radius-box:0.25rem;
+  --size-selector:0.25rem;
+  --size-field:0.25rem;
+  --border:1px;
+  --depth:0;
+  --noise:0;
+}
+
+/* --------------------------------------------------------------------------
+   Tema escuro. Para painel sobre mapa, sala de situação e uso em campo.
+   As cores de ação clareiam para manter contraste sobre o preto do manual.
+   -------------------------------------------------------------------------- */
+@plugin "daisyui/theme" {
+  name:"fogo-escuro";
+  default:false;
+  prefersdark:true;
+  color-scheme:dark;
+
+  --color-base-100:#231F20;
+  --color-base-200:#1A1718;
+  --color-base-300:#2E2A2B;
+  --color-base-content:#F6F5F6;
+
+  --color-primary:#65AE80;          --color-primary-content:#00210F;
+  --color-secondary:#FF8679;        --color-secondary-content:#3A0000;
+  --color-accent:#F5821F;           --color-accent-content:#231F20;
+  --color-neutral:#40403B;          --color-neutral-content:#F6F5F6;
+
+  --color-info:#B6B6B1;             --color-info-content:#231F20;
+  --color-success:#65AE80;          --color-success-content:#00210F;
+  --color-warning:#F39F66;          --color-warning-content:#231F20;
+  --color-error:#FF8679;            --color-error-content:#3A0000;
+
+  --radius-selector:0.125rem;
+  --radius-field:0.125rem;
+  --radius-box:0.25rem;
+  --size-selector:0.25rem;
+  --size-field:0.25rem;
+  --border:1px;
+  --depth:0;
+  --noise:0;
+}

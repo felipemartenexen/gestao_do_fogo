@@ -1,7 +1,7 @@
 {% load i18n %}
 {% comment %}Números-destaque no formato do infográfico do relatório.{% endcomment %}
 <section class="container mx-auto px-4 py-14 max-w-6xl">
-  <p class="rotulo text-sm text-[var(--vermelho-700)]">{% translate "A rede em números" %}</p>
+  <p class="rotulo text-sm text-marca">{% translate "A rede em números" %}</p>
   <h2 class="text-3xl mt-1 mb-8">{% translate "Quem pesquisa fogo no Brasil" %}</h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -9,12 +9,12 @@
       <div class="kpi-num">{{ total_researchers }}</div>
       <div class="kpi-rot">{% translate "pesquisadores mapeados" %}</div>
     </div>
-    <div class="kpi" style="border-left-color: var(--verde-700)">
-      <div class="kpi-num" style="color: var(--verde-700)">{{ total_institutions }}</div>
+    <div class="kpi kpi-verde">
+      <div class="kpi-num">{{ total_institutions }}</div>
       <div class="kpi-rot">{% translate "instituições" %}</div>
     </div>
-    <div class="kpi" style="border-left-color: var(--oliva-700)">
-      <div class="kpi-num" style="color: var(--oliva-700)">{{ total_states }}</div>
+    <div class="kpi kpi-oliva">
+      <div class="kpi-num">{{ total_states }}</div>
       <div class="kpi-rot">{% translate "estados representados" %}</div>
     </div>
   </div>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identidade Gestão do Fogo na Amazônia · guia de interface</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="componentes.css">
+<style>
+  .sg-hero{background:var(--of-preto); color:#FFF; padding:var(--e-16) 0 var(--e-12); position:relative}
+  .sg-hero::after{content:""; position:absolute; left:0; right:0; bottom:0; height:6px;
+    background:linear-gradient(90deg,var(--fogo-1),var(--fogo-2),var(--fogo-3),var(--fogo-4),var(--fogo-5),var(--fogo-6),var(--fogo-7))}
+  .sg-logo{font-family:var(--fonte-marca); font-size:clamp(2.6rem,9vw,5.4rem); line-height:.92; text-transform:uppercase; margin:0}
+  .sg-logo .bloco{font-family:var(--fonte-titulo); font-size:.34em; background:#FFF; color:var(--of-preto); padding:0 .18em; vertical-align:.55em}
+  .sg-hero p{color:#C9C5C6; margin-top:var(--e-4)}
+  .sg-grade{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:var(--e-2)}
+  .sg-amostra{border:1px solid var(--borda); background:var(--superficie); cursor:pointer; text-align:left; padding:0; font:inherit}
+  .sg-amostra .cor{height:62px; display:flex; align-items:flex-end; padding:6px}
+  .sg-amostra .cor b{font-family:var(--fonte-titulo); font-size:var(--t-11); letter-spacing:.05em}
+  .sg-amostra .meta{padding:6px 8px}
+  .sg-amostra .nome{font-size:var(--t-12); font-weight:600; display:block}
+  .sg-amostra .hex{font-family:var(--fonte-mono); font-size:var(--t-11); color:var(--texto-suave)}
+  .sg-rampa-linha{display:flex; margin:0 0 var(--e-2)}
+  .sg-rampa-linha span{flex:1; height:38px; display:grid; place-items:center; font-family:var(--fonte-mono); font-size:9px}
+  .sg-espec{display:grid; grid-template-columns:190px 1fr; gap:var(--e-4); padding:var(--e-4) 0; border-bottom:1px dashed var(--borda); align-items:baseline}
+  .sg-espec .info{font-family:var(--fonte-mono); font-size:var(--t-11); color:var(--texto-suave)}
+  .sg-dupla{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:var(--e-6)}
+  .sg-linha{display:flex; gap:var(--e-3); flex-wrap:wrap; align-items:center; margin-bottom:var(--e-4)}
+  .sg-nota{font-size:var(--t-14); color:var(--texto-suave); max-width:var(--largura-leitura)}
+  .sg-copiado{position:fixed; inset:auto var(--e-6) var(--e-6) auto; background:var(--of-verde); color:#FFF;
+    font-family:var(--fonte-titulo); font-size:var(--t-12); text-transform:uppercase; letter-spacing:.08em;
+    padding:8px var(--e-4); opacity:0; transition:opacity var(--transicao)}
+  .sg-copiado.ativo{opacity:1}
+  @media (max-width:640px){ .sg-espec{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="sg-hero">
+  <div class="gf-conteudo">
+    <span class="gf-rotulo gf-rotulo--marca">Guia de interface · v1.0</span>
+    <h1 class="sg-logo">Gestão <span class="bloco">do</span><br>Fogo <span class="bloco">na</span><br>Amazônia</h1>
+    <p>Tradução da identidade impressa (Agência W5 / IPAM, 2025) para componentes de tela.
+       Cores extraídas dos vetores do PDF original; tipografia com os arquivos entregues pela agência.</p>
+  </div>
+</header>
+
+<main class="gf-conteudo">
+
+  <!-- 1. PALETA -->
+  <section class="gf-secao">
+    <div class="gf-secao__cab"><span class="gf-secao__num">1</span><h2>Paleta</h2></div>
+    <hr class="gf-secao__linha-fogo">
+    <p class="sg-nota">As sete cores do manual, com os valores lidos diretamente dos objetos do arquivo do InDesign. Clique em qualquer amostra para copiar o hexadecimal.</p>
+
+    <h4>Cores oficiais</h4>
+    <div class="sg-grade" id="oficiais"></div>
+
+    <h4>Escalas de interface</h4>
+    <p class="sg-nota">Geradas em OKLab a partir de cada cor oficial, mantendo matiz e croma. A cor do manual permanece intacta dentro da rampa e está marcada com o ponto.</p>
+    <div id="escalas"></div>
+  </section>
+
+  <!-- 2. TIPOGRAFIA -->
+  <section class="gf-secao">
+    <div class="gf-secao__cab"><span class="gf-secao__num">2</span><h2>Tipografia</h2></div>
+    <hr class="gf-secao__linha-fogo">
+
+    <div class="sg-espec">
+      <div class="info">Downcome<br>--fonte-marca<br>logo e hero</div>
+      <div style="font-family:var(--fonte-marca); font-size:var(--t-48); line-height:1.05; text-transform:uppercase">Amazônia · ABC123Ç!</div>
+    </div>
+    <div class="sg-espec">
+      <div class="info">Built Titling Bd<br>--fonte-titulo · 700<br>títulos de tela</div>
+      <div style="font-family:var(--fonte-titulo); font-weight:700; font-size:var(--t-38); text-transform:uppercase">Monitoramento de cicatrizes</div>
+    </div>
+    <div class="sg-espec">
+      <div class="info">Built Titling Sb<br>--fonte-titulo · 600<br>rótulos, botões, tabelas</div>
+      <div style="font-family:var(--fonte-titulo); font-weight:600; font-size:var(--t-16); text-transform:uppercase; letter-spacing:var(--tracking-rotulo)">Área queimada acumulada · 2015 a 2025</div>
+    </div>
+    <div class="sg-espec">
+      <div class="info">Zilla Slab Regular<br>--fonte-texto · 400<br>corpo de texto</div>
+      <div>O fogo não é um fenômeno natural na floresta tropical. Em condições equilibradas, a umidade do ambiente dificulta a ocorrência de incêndios naturais, e a ignição vem de atividades humanas.</div>
+    </div>
+    <div class="sg-espec">
+      <div class="info">Zilla Slab Bold / Italic<br>--fonte-texto · 700 e itálico<br>ênfase e citação</div>
+      <div><b>Destaque em negrito</b> dentro do parágrafo, e <i>citação em itálico</i> como no impresso.</div>
+    </div>
+    <div class="sg-espec">
+      <div class="info">Zilla Slab tabular<br>.gf-num<br>números e tabelas</div>
+      <div class="gf-num" style="font-size:var(--t-24)">12.740.318 ha · 1985–2025 · 41 anos</div>
+    </div>
+
+    <div class="gf-aviso gf-aviso--alerta" style="margin-top:var(--e-6)">
+      <div><b>Uso da Downcome com parcimônia.</b> No impresso ela aparece só no logotipo e nos títulos de abertura. Em tela, texturas desgastadas perdem legibilidade abaixo de 32 px e em telas de baixa densidade. Reserve para o logo e a abertura; todo o resto usa Built Titling.</div>
+    </div>
+  </section>
+
+  <!-- 3. DATAVIZ -->
+  <section class="gf-secao">
+    <div class="gf-secao__cab"><span class="gf-secao__num">3</span><h2>Dados e mapas</h2></div>
+    <hr class="gf-secao__linha-fogo">
+
+    <h4>Rampa de fogo (sequencial)</h4>
+    <div class="sg-rampa-linha" id="rampa-fogo"></div>
+    <p class="sg-nota">Para área queimada, frequência e severidade. A rampa fecha no preto do manual, que representa a área devastada.</p>
+
+    <h4>Rampa de vegetação (sequencial)</h4>
+    <div class="sg-rampa-linha" id="rampa-veg"></div>
+    <p class="sg-nota">Para cobertura vegetal e áreas em recuperação, do oliva ao verde da floresta preservada.</p>
+
+    <h4>Categórica institucional</h4>
+    <div class="sg-rampa-linha" id="rampa-cat"></div>
+    <p class="sg-nota">Ordem de uso em séries categóricas. A partir da quinta categoria, prefira agrupar em "outros" com o cinza <code>--dv-sem-info</code>.</p>
+
+    <div class="sg-dupla" style="margin-top:var(--e-6)">
+      <div class="gf-legenda-mapa">
+        <h4>Área queimada (ha)</h4>
+        <div class="gf-rampa">
+          <span style="background:var(--fogo-1)"></span><span style="background:var(--fogo-2)"></span>
+          <span style="background:var(--fogo-3)"></span><span style="background:var(--fogo-4)"></span>
+          <span style="background:var(--fogo-5)"></span><span style="background:var(--fogo-6)"></span>
+          <span style="background:var(--fogo-7)"></span>
+        </div>
+        <div class="gf-rampa-rotulos"><span>0</span><span>&gt; 50 mil</span></div>
+        <div class="gf-legenda-item"><span class="gf-legenda-cor" style="background:var(--dv-sem-info)"></span> Sem informação</div>
+      </div>
+      <div>
+        <div class="gf-kpi gf-kpi--perigo" style="margin-bottom:var(--e-3)">
+          <div class="gf-kpi__rotulo">Área queimada em 2025</div>
+          <div class="gf-kpi__valor gf-num">12,7 mi ha</div>
+          <div class="gf-kpi__nota">Menor valor da série de 41 anos</div>
+        </div>
+        <div class="gf-kpi">
+          <div class="gf-kpi__rotulo">Focos ativos na semana</div>
+          <div class="gf-kpi__valor gf-num">1.482</div>
+          <div class="gf-kpi__nota">VIIRS/SNPP, últimas 168 horas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. COMPONENTES -->
+  <section class="gf-secao">
+    <div class="gf-secao__cab"><span class="gf-secao__num">4</span><h2>Componentes</h2></div>
+    <hr class="gf-secao__linha-fogo">
+
+    <h4>Botões</h4>
+    <div class="sg-linha">
+      <button class="gf-btn">Gerar relatório</button>
+      <button class="gf-btn gf-btn--perigo">Excluir análise</button>
+      <button class="gf-btn gf-btn--alerta">Recalcular</button>
+      <button class="gf-btn gf-btn--secundario">Cancelar</button>
+      <button class="gf-btn gf-btn--discreto">Ver detalhes</button>
+      <button class="gf-btn" disabled>Processando</button>
+    </div>
+
+    <h4>Rótulos e selos</h4>
+    <div class="sg-linha">
+      <span class="gf-rotulo">Padrão</span>
+      <span class="gf-rotulo gf-rotulo--marca">Bordô</span>
+      <span class="gf-rotulo gf-rotulo--verde">Verde</span>
+      <span class="gf-rotulo gf-rotulo--alerta">Alerta</span>
+      <span class="gf-rotulo gf-rotulo--contorno">Contorno</span>
+      <span class="gf-selo gf-selo--critico"><i class="gf-selo__ponto"></i>Risco crítico</span>
+      <span class="gf-selo gf-selo--atencao"><i class="gf-selo__ponto"></i>Atenção</span>
+      <span class="gf-selo gf-selo--estavel"><i class="gf-selo__ponto"></i>Estável</span>
+      <span class="gf-selo gf-selo--neutro"><i class="gf-selo__ponto"></i>Sem dado</span>
+    </div>
+
+    <h4>Cartões de eixo</h4>
+    <div class="sg-dupla">
+      <div class="gf-eixo"><div class="gf-eixo__num">1</div><div class="gf-eixo__corpo"><h4>Inteligência do fogo</h4><p>Geração de dados e ferramentas de risco para tomada de decisão.</p></div></div>
+      <div class="gf-eixo gf-eixo--verde"><div class="gf-eixo__num">2</div><div class="gf-eixo__corpo"><h4>Governança e gestão</h4><p>Políticas e esforços institucionais coordenados com a sociedade civil.</p></div></div>
+    </div>
+
+    <h4>Faixas temáticas</h4>
+    <ul class="gf-faixas">
+      <li class="gf-faixa">Prevenção e controle</li>
+      <li class="gf-faixa">Governança</li>
+      <li class="gf-faixa">Competências</li>
+      <li class="gf-faixa">Monitoramento</li>
+      <li class="gf-faixa">Recursos</li>
+      <li class="gf-faixa">Manejo integrado</li>
+    </ul>
+
+    <h4>Tabela</h4>
+    <table class="gf-tabela">
+      <caption>Área queimada por categoria fundiária, 2025</caption>
+      <thead><tr><th>Categoria</th><th>Estado</th><th class="gf-num">Área (ha)</th><th class="gf-num">Variação</th></tr></thead>
+      <tbody>
+        <tr><td>Terra indígena homologada</td><td>PA</td><td class="gf-num">945.870</td><td class="gf-num">-12%</td></tr>
+        <tr><td>Unidade de conservação</td><td>PA</td><td class="gf-num">363.280</td><td class="gf-num">-4%</td></tr>
+        <tr><td>Assentamento</td><td>MT</td><td class="gf-num">171.958</td><td class="gf-num">+8%</td></tr>
+        <tr><td>Imóvel rural privado</td><td>RO</td><td class="gf-num">92.452</td><td class="gf-num">+21%</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Total</td><td class="gf-num">1.573.560</td><td class="gf-num">-3%</td></tr></tfoot>
+    </table>
+
+    <h4>Avisos</h4>
+    <div class="sg-linha" style="flex-direction:column; align-items:stretch">
+      <div class="gf-aviso gf-aviso--perigo"><div><b>Processamento interrompido.</b> A coleção selecionada não cobre o período pedido. Escolha outro intervalo e execute de novo.</div></div>
+      <div class="gf-aviso gf-aviso--alerta"><div><b>Dado preliminar.</b> Os focos das últimas 24 horas ainda não passaram por validação.</div></div>
+      <div class="gf-aviso gf-aviso--ok"><div><b>Relatório pronto.</b> O arquivo ficou disponível na aba Downloads.</div></div>
+      <div class="gf-aviso gf-aviso--info"><div><b>Sem informação para este município.</b> Ajuste o recorte ou amplie o período.</div></div>
+    </div>
+
+    <h4>Formulário</h4>
+    <div class="gf-cartao" style="max-width:460px">
+      <div class="gf-campo">
+        <label for="territorio">Território</label>
+        <input id="territorio" type="text" placeholder="Ex.: RESEX Tapajós-Arapiuns">
+        <span class="gf-campo__ajuda">Digite o nome ou cole um código CNUC.</span>
+      </div>
+      <div class="gf-campo">
+        <label for="colecao">Coleção</label>
+        <select id="colecao"><option>MapBiomas Fogo 5</option><option>MapBiomas Fogo 4</option></select>
+      </div>
+      <div class="gf-campo gf-campo--erro">
+        <label for="periodo">Período</label>
+        <input id="periodo" type="text" value="2015 - 2031">
+        <span class="gf-campo__erro">O ano final não pode ser maior que 2025.</span>
+      </div>
+      <button class="gf-btn">Executar análise</button>
+    </div>
+
+    <h4>Abas e navegação</h4>
+    <div class="gf-abas" role="tablist">
+      <button class="gf-aba" role="tab" aria-selected="true">Mapa</button>
+      <button class="gf-aba" role="tab" aria-selected="false">Séries</button>
+      <button class="gf-aba" role="tab" aria-selected="false">Tabelas</button>
+      <button class="gf-aba" role="tab" aria-selected="false">Relatórios</button>
+    </div>
+  </section>
+
+  <!-- 5. SUPERFÍCIE ESCURA -->
+  <section class="gf-secao">
+    <div class="gf-secao__cab"><span class="gf-secao__num">5</span><h2>Superfície escura</h2></div>
+    <hr class="gf-secao__linha-fogo">
+    <p class="sg-nota">Para painéis sobre mapa, cabeçalhos e modo noturno de campo. Aplique <code>data-tema="escuro"</code> no contêiner.</p>
+    <div data-tema="escuro" style="background:var(--fundo); padding:var(--e-6); border:1px solid var(--borda)">
+      <div class="gf-cartao" style="background:var(--superficie); border-color:var(--borda)">
+        <h4 style="color:var(--texto)">Painel de operação</h4>
+        <p style="color:var(--texto-suave)">Alertas das últimas seis horas no raio de 30 km da brigada.</p>
+        <div class="sg-linha" style="margin:0">
+          <button class="gf-btn">Enviar equipe</button>
+          <button class="gf-btn gf-btn--secundario" style="color:var(--texto); border-color:var(--borda-forte)">Adiar</button>
+          <span class="gf-selo gf-selo--critico"><i class="gf-selo__ponto"></i>3 focos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CONTRASTE -->
+  <section class="gf-secao" style="border-bottom:0">
+    <div class="gf-secao__cab"><span class="gf-secao__num">6</span><h2>Acessibilidade</h2></div>
+    <hr class="gf-secao__linha-fogo">
+    <table class="gf-tabela">
+      <caption>Razões de contraste medidas (WCAG 2.1). AA exige 4,5:1 para texto normal e 3:1 para texto grande.</caption>
+      <thead><tr><th>Combinação</th><th class="gf-num">Contraste</th><th>Uso liberado</th></tr></thead>
+      <tbody>
+        <tr><td>Preto #231F20 sobre branco</td><td class="gf-num">16,3:1</td><td>Qualquer texto</td></tr>
+        <tr><td>Bordô #9E0A0E sobre branco</td><td class="gf-num">8,4:1</td><td>Qualquer texto, títulos de seção</td></tr>
+        <tr><td>Verde #0D6C3E sobre branco</td><td class="gf-num">6,5:1</td><td>Qualquer texto, links, botão primário</td></tr>
+        <tr><td>Cinza #777770 sobre branco</td><td class="gf-num">4,5:1</td><td>Texto de apoio, no limite do AA</td></tr>
+        <tr><td>Vermelho #ED1C24 sobre branco</td><td class="gf-num">4,4:1</td><td>Só texto grande, ícones e dataviz</td></tr>
+        <tr><td>Laranja #F5821F sobre branco</td><td class="gf-num">2,6:1</td><td>Nunca como texto; só preenchimento e traço</td></tr>
+        <tr><td>Preto #231F20 sobre laranja #F5821F</td><td class="gf-num">6,3:1</td><td>Botão de alerta, rótulo em bloco</td></tr>
+        <tr><td>Branco sobre bordô #9E0A0E</td><td class="gf-num">8,4:1</td><td>Cabeçalho de tabela, botão de perigo</td></tr>
+      </tbody>
+    </table>
+    <div class="gf-aviso gf-aviso--info" style="margin-top:var(--e-4)">
+      <div>Nunca use cor sozinha para diferenciar estado. Os selos combinam cor, ponto e texto; nos mapas, acompanhe a rampa de rótulos numéricos.</div>
+    </div>
+  </section>
+</main>
+
+<div class="sg-copiado" id="aviso-copia">Copiado</div>
+
+<script>
+const OFICIAIS = [
+  ['Laranja','#F5821F','--of-laranja','fogo ativo'],
+  ['Vermelho','#ED1C24','--of-vermelho','urgência'],
+  ['Bordô','#9E0A0E','--of-bordo','queima severa'],
+  ['Preto','#231F20','--of-preto','área devastada'],
+  ['Cinza','#777770','--of-cinza','cinzas'],
+  ['Verde','#0D6C3E','--of-verde','floresta'],
+  ['Oliva','#9FAD63','--of-oliva','recuperação']
+];
+const ESCALAS = {
+  laranja:['#FFF1E5','#FFDFC8','#FFC29A','#F39F66','#F5821F','#CE5E00','#B44700','#973000','#751C00','#540A00'],
+  vermelho:['#FFEDE8','#FFD7CF','#FFB2A6','#FF8679','#FF564D','#ED1C24','#D40002','#B20000','#8C0000','#660000'],
+  bordo:['#FFEFEB','#FFDBD5','#FFBBB0','#FC9588','#ED6F62','#D84E43','#BE342D','#9E0A0E','#7C0206','#590000'],
+  verde:['#EDFAF1','#D7EFDE','#B5DDC2','#8DC5A0','#65AE80','#449766','#2A8050','#0D6C3E','#004E29','#003517'],
+  oliva:['#F5F7EC','#E6EBD5','#CED7B1','#B2BC88','#9FAD63','#7E8B42','#69752A','#525D15','#3C4502','#272E00'],
+  cinza:['#F6F6F4','#E8E8E6','#D2D2CE','#B6B6B1','#9C9C95','#84847D','#777770','#575751','#40403B','#2A2A26']
+};
+const OFICIAL_NA_ESCALA = {laranja:'#F5821F',vermelho:'#ED1C24',bordo:'#9E0A0E',verde:'#0D6C3E',oliva:'#9FAD63',cinza:'#777770'};
+const PESOS = [50,100,200,300,400,500,600,700,800,900];
+
+function claro(hex){
+  const r=parseInt(hex.substr(1,2),16),g=parseInt(hex.substr(3,2),16),b=parseInt(hex.substr(5,2),16);
+  return (0.2126*r+0.7152*g+0.0722*b)/255 > 0.55;
+}
+function copiar(txt){
+  navigator.clipboard?.writeText(txt);
+  const a=document.getElementById('aviso-copia');
+  a.textContent='Copiado '+txt; a.classList.add('ativo');
+  clearTimeout(window._t); window._t=setTimeout(()=>a.classList.remove('ativo'),1200);
+}
+const alvoOficiais=document.getElementById('oficiais');
+OFICIAIS.forEach(([nome,hex,varname,uso])=>{
+  const b=document.createElement('button');
+  b.className='sg-amostra'; b.type='button';
+  b.innerHTML=`<div class="cor" style="background:${hex}; color:${claro(hex)?'#231F20':'#fff'}"><b>${uso}</b></div>
+    <div class="meta"><span class="nome">${nome}</span><span class="hex">${hex} · ${varname}</span></div>`;
+  b.onclick=()=>copiar(hex);
+  alvoOficiais.appendChild(b);
+});
+const alvoEscalas=document.getElementById('escalas');
+Object.entries(ESCALAS).forEach(([nome,cores])=>{
+  const h=document.createElement('div');
+  h.innerHTML=`<div style="font-family:var(--fonte-titulo);font-size:var(--t-12);text-transform:uppercase;letter-spacing:.08em;color:var(--texto-suave);margin:var(--e-4) 0 4px">${nome}</div>`;
+  const linha=document.createElement('div'); linha.className='sg-rampa-linha';
+  cores.forEach((c,i)=>{
+    const s=document.createElement('span');
+    s.style.background=c; s.style.color=claro(c)?'#231F20':'#fff'; s.style.cursor='pointer';
+    s.title=`--${nome}-${PESOS[i]} ${c}`;
+    s.textContent=(OFICIAL_NA_ESCALA[nome]===c?'● ':'')+PESOS[i];
+    s.onclick=()=>copiar(c);
+    linha.appendChild(s);
+  });
+  h.appendChild(linha); alvoEscalas.appendChild(h);
+});
+function pintarRampa(id,cores,rotulos){
+  const alvo=document.getElementById(id);
+  cores.forEach((c,i)=>{
+    const s=document.createElement('span');
+    s.style.background=c; s.style.color=claro(c)?'#231F20':'#fff';
+    s.textContent=rotulos?rotulos[i]:c; s.style.cursor='pointer'; s.onclick=()=>copiar(c);
+    alvo.appendChild(s);
+  });
+}
+pintarRampa('rampa-fogo',['#FFF1E5','#FBA970','#F36822','#ED1C24','#B81015','#741F1B','#231F20']);
+pintarRampa('rampa-veg',['#F5F7EC','#B4BF86','#618C50','#085E34','#003517']);
+pintarRampa('rampa-cat',['#ED1C24','#9E0A0E','#231F20','#F5821F','#0D6C3E','#9FAD63','#777770','#C5C6C1']);
+document.querySelectorAll('.gf-aba').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.gf-aba').forEach(o=>o.setAttribute('aria-selected','false'));
+  t.setAttribute('aria-selected','true');
+}));
+</script>
+</body>
+</html>

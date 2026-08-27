@@ -1,0 +1,131 @@
+{# ==========================================================================
+   templates/web/identidade_demo.html
+   Página de conferência: mostra os componentes daisyUI já com o tema "fogo"
+   e os recursos gráficos vindos do impresso.
+   Ajuste o extends e o nome do bloco conforme a base do seu projeto.
+   Rota sugerida em urls.py:
+     path("identidade/", TemplateView.as_view(template_name="web/identidade_demo.html"), name="identidade"),
+   ========================================================================== #}
+{% extends "web/app.html" %}
+{% load static %}
+
+{% block app %}
+<div class="max-w-5xl mx-auto px-6 py-10">
+
+  <span class="rotulo-bloco is-marca">Identidade · conferência</span>
+  <h1 class="text-4xl mt-3">Gestão do fogo na Amazônia</h1>
+  <hr class="linha-fogo mt-4">
+
+  <div class="secao-cab"><span class="secao-num">1</span><h2 class="text-2xl">Ações</h2></div>
+  <div class="flex flex-wrap gap-3 mb-8">
+    <button class="btn btn-primary">Gerar relatório</button>
+    <button class="btn btn-secondary">Excluir análise</button>
+    <button class="btn btn-accent">Recalcular</button>
+    <button class="btn btn-outline">Cancelar</button>
+    <button class="btn btn-ghost">Ver detalhes</button>
+    <button class="btn btn-primary" disabled>Processando</button>
+  </div>
+
+  <div class="secao-cab"><span class="secao-num">2</span><h2 class="text-2xl">Estado</h2></div>
+  <div class="flex flex-wrap gap-3 mb-4">
+    <span class="badge badge-error">Risco crítico</span>
+    <span class="badge badge-warning">Atenção</span>
+    <span class="badge badge-success">Estável</span>
+    <span class="badge badge-ghost">Sem dado</span>
+    <span class="rotulo-bloco">Padrão</span>
+    <span class="rotulo-bloco is-verde">Verde</span>
+    <span class="rotulo-bloco is-alerta">Alerta</span>
+  </div>
+  <div class="flex flex-col gap-2 mb-8">
+    <div class="alert alert-error">Processamento interrompido. A coleção selecionada não cobre o período pedido.</div>
+    <div class="alert alert-warning">Dado preliminar. Os focos das últimas 24 horas ainda não passaram por validação.</div>
+    <div class="alert alert-success">Relatório pronto. O arquivo ficou disponível na aba Downloads.</div>
+  </div>
+
+  <div class="secao-cab"><span class="secao-num">3</span><h2 class="text-2xl">Eixos</h2></div>
+  <div class="grid gap-4 md:grid-cols-2 mb-8">
+    <div class="cartao-eixo">
+      <div class="cartao-eixo__num">1</div>
+      <div class="cartao-eixo__corpo">
+        <h4 class="text-base">Inteligência do fogo</h4>
+        <p class="text-sm m-0">Geração de dados e ferramentas de risco para tomada de decisão.</p>
+      </div>
+    </div>
+    <div class="cartao-eixo is-verde">
+      <div class="cartao-eixo__num">2</div>
+      <div class="cartao-eixo__corpo">
+        <h4 class="text-base">Governança e gestão</h4>
+        <p class="text-sm m-0">Políticas e esforços institucionais coordenados com a sociedade civil.</p>
+      </div>
+    </div>
+  </div>
+
+  <ul class="faixas mb-8">
+    <li>Prevenção e controle</li>
+    <li>Governança</li>
+    <li>Monitoramento</li>
+    <li>Recursos</li>
+    <li>Manejo integrado</li>
+  </ul>
+
+  <div class="secao-cab"><span class="secao-num">4</span><h2 class="text-2xl">Dados</h2></div>
+  <div class="grid gap-4 md:grid-cols-3 mb-6">
+    <div class="stats bg-base-100 border border-base-300 rounded-none border-t-4 border-t-bordo-700">
+      <div class="stat">
+        <div class="stat-title">Área queimada em 2025</div>
+        <div class="stat-value text-3xl">12,7 mi ha</div>
+        <div class="stat-desc">Menor valor da série de 41 anos</div>
+      </div>
+    </div>
+    <div class="stats bg-base-100 border border-base-300 rounded-none border-t-4 border-t-laranja-400">
+      <div class="stat">
+        <div class="stat-title">Focos na semana</div>
+        <div class="stat-value text-3xl">1.482</div>
+        <div class="stat-desc">VIIRS/SNPP, últimas 168 horas</div>
+      </div>
+    </div>
+    <div class="legenda-mapa">
+      <h4 class="text-xs opacity-70">Área queimada (ha)</h4>
+      <div class="legenda-rampa">
+        <span class="bg-queimada-1"></span><span class="bg-queimada-2"></span>
+        <span class="bg-queimada-3"></span><span class="bg-queimada-4"></span>
+        <span class="bg-queimada-5"></span><span class="bg-queimada-6"></span>
+        <span class="bg-queimada-7"></span>
+      </div>
+      <div class="legenda-rotulos"><span>0</span><span>&gt; 50 mil</span></div>
+      <div class="legenda-item"><span class="legenda-cor bg-sem-info"></span> Sem informação</div>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto mb-8">
+    <table class="table">
+      <thead>
+        <tr><th>Categoria fundiária</th><th>UF</th><th class="text-right">Área (ha)</th><th class="text-right">Variação</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Terra indígena homologada</td><td>PA</td><td class="text-right">945.870</td><td class="text-right">-12%</td></tr>
+        <tr><td>Unidade de conservação</td><td>PA</td><td class="text-right">363.280</td><td class="text-right">-4%</td></tr>
+        <tr><td>Assentamento</td><td>MT</td><td class="text-right">171.958</td><td class="text-right">+8%</td></tr>
+        <tr><td>Imóvel rural privado</td><td>RO</td><td class="text-right">92.452</td><td class="text-right">+21%</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Total</td><td class="text-right">1.573.560</td><td class="text-right">-3%</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="secao-cab"><span class="secao-num">5</span><h2 class="text-2xl">Formulário</h2></div>
+  <div class="card bg-base-100 border border-base-300 max-w-md">
+    <div class="card-body gap-4">
+      <div>
+        <label class="label" for="territorio"><span class="label-text">Território</span></label>
+        <input id="territorio" type="text" class="input w-full" placeholder="RESEX Tapajós-Arapiuns">
+      </div>
+      <div>
+        <label class="label" for="colecao"><span class="label-text">Coleção</span></label>
+        <select id="colecao" class="select w-full"><option>MapBiomas Fogo 5</option><option>MapBiomas Fogo 4</option></select>
+      </div>
+      <button class="btn btn-primary">Executar análise</button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
